@@ -18,9 +18,12 @@ public class BookingMain
         
         //testing the user login in part:
         UserModel newUser = new UserModel();
-        newUser.userOper.getQuery();
+        //newUser.userOper.getQuery();
         
-        
+        //here set the login frame file as a main file for login:
+        LoginPage login = new LoginPage();
+        login.setLocationRelativeTo(null);
+        login.show();
         
         
         

@@ -26,7 +26,7 @@ public final class DBManager {
 
     private static final String USER_NAME = "evan";
     private static final String PASSWORD = "1234";   
-    private static final String URL = "jdbc:derby://localhost:1527/BookingSystem";
+    private static final String URL = "jdbc:derby:BookingSystem;create=true";
                                         //jdbc:derby://localhost:1527/BookingSystem
                                         //jdbc:derby:BookingSystem;create=true
 
