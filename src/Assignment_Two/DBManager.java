@@ -29,7 +29,7 @@ public final class DBManager {
     private static final String URL = "jdbc:derby:BookingSystem;create=true";
                                         //jdbc:derby://localhost:1527/BookingSystem
                                         //jdbc:derby:BookingSystem;create=true
-
+    //we can use this one to get connect to the database!!!!!!!
     Connection conn;
 
     public DBManager() {

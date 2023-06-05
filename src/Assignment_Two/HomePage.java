@@ -7,6 +7,8 @@ package Assignment_Two;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,9 +20,23 @@ public class HomePage extends javax.swing.JFrame {
     /**
      * Creates new form HomePage
      */
+    
+    private String flightT = null;
+    
     public HomePage() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
+
+    public String getFlightT() {
+        return flightT;
+    }
+
+    public void setFlightT(String flightT) {
+        this.flightT = flightT;
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -39,25 +55,25 @@ public class HomePage extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        departCity = new javax.swing.JComboBox<>();
+        arrivalCity = new javax.swing.JComboBox<>();
         dateChooserCombo1 = new datechooser.beans.DateChooserCombo();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        flightTimeAm = new javax.swing.JRadioButton();
+        flightTimePm = new javax.swing.JRadioButton();
         jLabel6 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
+        adult = new javax.swing.JSpinner();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jSpinner2 = new javax.swing.JSpinner();
+        child = new javax.swing.JSpinner();
         jLabel9 = new javax.swing.JLabel();
-        jSpinner3 = new javax.swing.JSpinner();
+        infants = new javax.swing.JSpinner();
         jLabel10 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        btmConfirm = new javax.swing.JButton();
+        serviceC = new javax.swing.JComboBox<>();
+        btnConfirm = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        checkTicketFname = new javax.swing.JTextField();
+        checkTicketLname = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -75,11 +91,16 @@ public class HomePage extends javax.swing.JFrame {
         jLabel4.setText("Flight date:");
 
         jLabel5.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
-        jLabel5.setText("Foght time:");
+        jLabel5.setText("Fight time:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Auckland", "Wellington" }));
+        departCity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Auckland", "Wellington" }));
+        departCity.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                departCityActionPerformed(evt);
+            }
+        });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "New York", "Shanghai", "Tokyo" }));
+        arrivalCity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "New York", "Shanghai", "Tokyo" }));
 
         dateChooserCombo1.setCurrentView(new datechooser.view.appearance.AppearancesList("Swing",
             new datechooser.view.appearance.ViewAppearance("custom",
@@ -125,42 +146,47 @@ public class HomePage extends javax.swing.JFrame {
     dateChooserCombo1.setNothingAllowed(false);
     dateChooserCombo1.setLocale(new java.util.Locale("en", "NZ", ""));
 
-    buttonGroup1.add(jRadioButton1);
-    jRadioButton1.setText("08:00 (Morinig)");
-    jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+    buttonGroup1.add(flightTimeAm);
+    flightTimeAm.setText("8AM");
+    flightTimeAm.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jRadioButton1ActionPerformed(evt);
+            flightTimeAmActionPerformed(evt);
         }
     });
 
-    buttonGroup1.add(jRadioButton2);
-    jRadioButton2.setText("14:00 (Afternoon)");
+    buttonGroup1.add(flightTimePm);
+    flightTimePm.setText("2PM");
+    flightTimePm.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            flightTimePmActionPerformed(evt);
+        }
+    });
 
     jLabel6.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
     jLabel6.setText("Choose Passenger:");
 
-    jSpinner1.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+    adult.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
     jLabel7.setText("Adult");
 
     jLabel8.setText("Children");
 
-    jSpinner2.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+    child.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
 
     jLabel9.setText("Infants ");
 
-    jSpinner3.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+    infants.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
 
     jLabel10.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
     jLabel10.setText("Service class:");
 
-    jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Economy Class", "Business Class" }));
+    serviceC.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Economy", "Business" }));
 
-    btmConfirm.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
-    btmConfirm.setText("Confirm");
-    btmConfirm.addActionListener(new java.awt.event.ActionListener() {
+    btnConfirm.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+    btnConfirm.setText("Confirm");
+    btnConfirm.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            btmConfirmActionPerformed(evt);
+            btnConfirmActionPerformed(evt);
         }
     });
 
@@ -172,8 +198,8 @@ public class HomePage extends javax.swing.JFrame {
             .addGap(21, 21, 21)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                 .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(departCity, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(arrivalCity, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(dateChooserCombo1, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addComponent(jLabel3)
@@ -181,12 +207,12 @@ public class HomePage extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(6, 6, 6)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jRadioButton2)
-                        .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(flightTimePm)
+                        .addComponent(flightTimeAm, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btmConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(96, 96, 96))
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(44, 44, 44)
@@ -197,18 +223,18 @@ public class HomePage extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(adult, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGap(18, 18, 18)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(child, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGap(18, 18, 18)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(infants, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(serviceC, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addContainerGap(36, Short.MAX_VALUE))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -221,11 +247,11 @@ public class HomePage extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addComponent(jLabel2)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(departCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(16, 16, 16)
                     .addComponent(jLabel3)
                     .addGap(4, 4, 4)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(arrivalCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addComponent(jLabel4))
                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -236,19 +262,19 @@ public class HomePage extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(adult, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(infants, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel8)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(child, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel10)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(serviceC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -256,27 +282,27 @@ public class HomePage extends javax.swing.JFrame {
                     .addGap(18, 18, 18)
                     .addComponent(jLabel5)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jRadioButton1)
+                    .addComponent(flightTimeAm)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jRadioButton2))
-                .addComponent(btmConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(flightTimePm))
+                .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addContainerGap(42, Short.MAX_VALUE))
     );
 
     jLabel11.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
     jLabel11.setText("Check existing ticket: ");
 
-    jTextField1.setText("First Name");
-    jTextField1.addActionListener(new java.awt.event.ActionListener() {
+    checkTicketFname.setText("First Name");
+    checkTicketFname.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jTextField1ActionPerformed(evt);
+            checkTicketFnameActionPerformed(evt);
         }
     });
 
-    jTextField2.setText("Last Name");
-    jTextField2.addActionListener(new java.awt.event.ActionListener() {
+    checkTicketLname.setText("Last Name");
+    checkTicketLname.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jTextField2ActionPerformed(evt);
+            checkTicketLnameActionPerformed(evt);
         }
     });
 
@@ -290,9 +316,9 @@ public class HomePage extends javax.swing.JFrame {
             .addGap(20, 20, 20)
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                 .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTextField1))
+                .addComponent(checkTicketFname))
             .addGap(18, 18, 18)
-            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(checkTicketLname, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jButton1)
             .addGap(42, 42, 42))
@@ -304,8 +330,8 @@ public class HomePage extends javax.swing.JFrame {
             .addComponent(jLabel11)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(checkTicketFname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(checkTicketLname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(jButton1))
             .addContainerGap(16, Short.MAX_VALUE))
     );
@@ -324,7 +350,7 @@ public class HomePage extends javax.swing.JFrame {
                 .addGroup(layout.createSequentialGroup()
                     .addGap(78, 78, 78)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addContainerGap(18, Short.MAX_VALUE))
+            .addContainerGap(27, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -341,19 +367,20 @@ public class HomePage extends javax.swing.JFrame {
     pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+    private void flightTimeAmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_flightTimeAmActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+        this.setFlightT("8AM");
+    }//GEN-LAST:event_flightTimeAmActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void checkTicketFnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkTicketFnameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_checkTicketFnameActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void checkTicketLnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkTicketLnameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_checkTicketLnameActionPerformed
 
-    private void btmConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmConfirmActionPerformed
+    private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
         // TODO add your handling code here:
         //Evan: check the flight database:
         //step1: check if there is flight by (destination, date and time match)  => Yes
@@ -362,40 +389,83 @@ public class HomePage extends javax.swing.JFrame {
         
         try {
             //built a connecting with database, this one need to change in the future:
-            UserModel newConn = new UserModel(); 
-            Connection con = newConn.userPart.conn;
+            DBManager dbFlight = new DBManager();
+            
+               
+            
             
             //get the user name and password from database:
-            String username = textUserName.getText();
-            String password = textPassword.getText();
+            String departCT = departCity.getSelectedItem().toString();
+            String arrivalCT = arrivalCity.getSelectedItem().toString();
+            String flightDate = dateChooserCombo1.getText();
+            String flightTime = flightT;
+            int passengerNo = (Integer)adult.getValue() + (Integer)child.getValue() + (Integer)infants.getValue();
+            String serviceClass = serviceC.getSelectedItem().toString();
             
+            // Check if flightTime is empty
+            if (flightTime == null) {
+                JOptionPane.showMessageDialog(this, "Please select a flight time.");
+                return; // Exit the method to prevent further execution
+            }
+            
+            
+            //check the date time first, must be after today!!!
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yy");
+            LocalDate enteredDate = LocalDate.parse(flightDate, formatter);
+            LocalDate currentDate = LocalDate.now();
+            
+            if (enteredDate.isBefore(currentDate)) {
+                JOptionPane.showMessageDialog(this, "Please select date time after today.");
+                return; // Exit the method to prevent further execution
+            } 
+
+
             //check if we have this name at hte table:
-            Statement stm = con.createStatement();
-            String sql = "select * from users where username='"+username+"' and password= '"+password+"'";           
+            Statement stm = dbFlight.conn.createStatement();
+            String sql = "select * from flight where departcity='"+departCT+"' and arrivalcity= '"+arrivalCT+"'";           
             ResultSet rs = stm.executeQuery(sql);
             
             if(rs.next()){
                 //if user name and password is true then go to Home page
+                System.out.println("Found this flight at database, now creating this order........");
+                Flight newFlight = new Flight(departCT, arrivalCT, flightTime);
+                System.out.println("User choose this flight line:");
+                System.out.println("depart city:"+departCT);
+                System.out.println("arrival city:"+arrivalCT);
+                System.out.println("date:"+flightDate);   //有问题
+                System.out.println("time:"+flightTime);   //有问题
+                System.out.println("number of passenger:"+passengerNo);
+                System.out.println("service class:"+serviceClass);
                 
                 
                 dispose();  //close the login page\
-                HomePage homePage = new HomePage();
-                homePage.show();
+                DetailForm detailpage = new DetailForm();
+                detailpage.show();
             } else {
                 //if hte username and pw is wrong show error:
-                JOptionPane.showMessageDialog(this, "User Name or Password wrong...");
-                textUserName.setText("");
-                textPassword.setText("");
+                // Check if flightTime is empty
+
+                JOptionPane.showMessageDialog(this, "We don't flight to this city recently, please choose other destination city!");
+                
             }
             
-            con.close();
+            dbFlight.conn.close();
             
             
             
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_btmConfirmActionPerformed
+    }//GEN-LAST:event_btnConfirmActionPerformed
+
+    private void flightTimePmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_flightTimePmActionPerformed
+        // TODO add your handling code here:
+        this.setFlightT("2PM");
+    }//GEN-LAST:event_flightTimePmActionPerformed
+
+    private void departCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_departCityActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_departCityActionPerformed
 
     /**
      * @param args the command line arguments
@@ -433,14 +503,20 @@ public class HomePage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btmConfirm;
+    private javax.swing.JSpinner adult;
+    private javax.swing.JComboBox<String> arrivalCity;
+    private javax.swing.JButton btnConfirm;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.JTextField checkTicketFname;
+    private javax.swing.JTextField checkTicketLname;
+    private javax.swing.JSpinner child;
     private datechooser.beans.DateChooserCombo dateChooserCombo1;
+    private javax.swing.JComboBox<String> departCity;
+    private javax.swing.JRadioButton flightTimeAm;
+    private javax.swing.JRadioButton flightTimePm;
+    private javax.swing.JSpinner infants;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -454,12 +530,6 @@ public class HomePage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JSpinner jSpinner2;
-    private javax.swing.JSpinner jSpinner3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JComboBox<String> serviceC;
     // End of variables declaration//GEN-END:variables
 }
