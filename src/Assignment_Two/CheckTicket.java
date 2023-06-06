@@ -21,6 +21,7 @@ public class CheckTicket extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
 
     
