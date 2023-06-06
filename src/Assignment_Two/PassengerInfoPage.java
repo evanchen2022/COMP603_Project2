@@ -40,6 +40,11 @@ public class PassengerInfoPage extends javax.swing.JFrame
         this.totalPassengers = totalPassengers;
         this.processedPassengers = processedPassengers;
     }
+    
+    public void setPassengerNumber(int passengerNumber) {
+    jLabel1.setText("Passenger " + passengerNumber + " Information");
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -359,6 +364,7 @@ public class PassengerInfoPage extends javax.swing.JFrame
         if(processedPassengers<totalPassengers)
         {
             PassengerInfoPage detailPage = new PassengerInfoPage(totalPassengers, processedPassengers);
+            detailPage.setPassengerNumber(processedPassengers+1);
             detailPage.show();
             this.dispose();
         }
