@@ -79,19 +79,17 @@
                   <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="dateChooser" pref="175" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jLabel5" alignment="0" max="32767" attributes="0"/>
-                          <Component id="departCity" alignment="0" pref="175" max="32767" attributes="0"/>
-                          <Component id="arrivalCity" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel4" alignment="0" min="-2" pref="106" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="flightTimePm" min="-2" max="-2" attributes="0"/>
-                                  <Component id="flightTimeAm" min="-2" pref="135" max="-2" attributes="0"/>
-                              </Group>
+                      <Component id="jLabel5" alignment="0" max="32767" attributes="0"/>
+                      <Component id="departCity" alignment="0" pref="175" max="32767" attributes="0"/>
+                      <Component id="arrivalCity" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel4" alignment="0" min="-2" pref="106" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="flightTimePm" min="-2" max="-2" attributes="0"/>
+                              <Component id="flightTimeAm" min="-2" pref="135" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>

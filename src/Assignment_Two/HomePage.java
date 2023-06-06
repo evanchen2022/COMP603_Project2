@@ -396,7 +396,7 @@ public class HomePage extends javax.swing.JFrame {
                 
                 
                 dispose();  //close the login page\
-                PassengerInfoPage detailPage = new PassengerInfoPage();
+                PassengerInfoPage detailPage = new PassengerInfoPage(passengerNo);
                 
                 detailPage.show();
             } else {
