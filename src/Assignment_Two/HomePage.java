@@ -401,7 +401,7 @@ public class HomePage extends javax.swing.JFrame {
                 
                 dispose();  //close the login page\
                 PassengerInfoPage detailPage = new PassengerInfoPage(passengerNo);
-                
+                detailPage.setPassengerNumber(1);
                 detailPage.show();
             } else {
                 //if hte username and pw is wrong show error:
