@@ -473,6 +473,7 @@ public class HomePage extends javax.swing.JFrame {
                 String ftime = rs.getString("flightTime");
                 String serviceC = rs.getString("class");
                 String fprice = rs.getString("Price");
+                
                 // ... Add more columns as needed
 
                 ticketDetails += "Ticket Number: " + ticketNum + "\n";
