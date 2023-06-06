@@ -41,6 +41,14 @@ public abstract class PassengerInfo
         this.clientNumber = clientNumber;
     }
     
+    //this construction just a helper, for temperery store check ticket passenger detail:
+    public PassengerInfo(String firstName, String lastName)
+    {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        
+    }
+    
     //Default constructor for PassengerInfo
     public PassengerInfo() 
     {
