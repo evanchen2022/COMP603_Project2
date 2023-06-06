@@ -74,7 +74,7 @@ public class HomePage extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         checkTicketFname = new javax.swing.JTextField();
         checkTicketLname = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        checkBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -88,7 +88,7 @@ public class HomePage extends javax.swing.JFrame {
         jLabel3.setText("Destination:");
 
         jLabel4.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
-        jLabel4.setText("Flight date:");
+        jLabel4.setText("Flight date(yyyy-mm-dd):");
 
         jLabel5.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
         jLabel5.setText("Fight time:");
@@ -154,18 +154,17 @@ public class HomePage extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(dateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(departCity, 0, 175, Short.MAX_VALUE)
-                        .addComponent(arrivalCity, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel3)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(6, 6, 6)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(flightTimePm)
-                                .addComponent(flightTimeAm, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(departCity, 0, 175, Short.MAX_VALUE)
+                    .addComponent(arrivalCity, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(flightTimePm)
+                            .addComponent(flightTimeAm, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -263,7 +262,12 @@ public class HomePage extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Check");
+        checkBtn.setText("Check");
+        checkBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -277,7 +281,7 @@ public class HomePage extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(checkTicketLname, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(checkBtn)
                 .addGap(42, 42, 42))
         );
         jPanel2Layout.setVerticalGroup(
@@ -289,7 +293,7 @@ public class HomePage extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(checkTicketFname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(checkTicketLname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(checkBtn))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -367,7 +371,7 @@ public class HomePage extends javax.swing.JFrame {
             
             
             //check the date time first, must be after today!!!
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yy");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate enteredDate = LocalDate.parse(flightDate, formatter);
             LocalDate currentDate = LocalDate.now();
             
@@ -385,7 +389,7 @@ public class HomePage extends javax.swing.JFrame {
             if(rs.next()){
                 //if user name and password is true then go to Home page
                 System.out.println("Found this flight at database, now creating this order........");
-                Flight newFlight = new Flight(departCT, arrivalCT, flightTime);
+                Flight newFlight = new Flight(departCT, arrivalCT, flightDate,flightTime);
                 System.out.println("User choose this flight line:");
                 System.out.println("depart city:"+departCT);
                 System.out.println("arrival city:"+arrivalCT);
@@ -424,6 +428,92 @@ public class HomePage extends javax.swing.JFrame {
     private void departCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_departCityActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_departCityActionPerformed
+
+    private void checkBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBtnActionPerformed
+        // TODO add your handling code here:
+        
+        try {
+            //built a connecting with database, this one need to change in the future:
+            DBManager dbCheckTicket = new DBManager();            
+            
+            //get the user name and password from database:           
+            String fName = checkTicketFname.getText().toUpperCase();
+            String lName = checkTicketLname.getText().toUpperCase();
+            
+            System.out.println(fName);
+            System.out.println(lName);
+            
+            // Check if flightTime is empty
+            if (fName == null || lName == null) {
+                JOptionPane.showMessageDialog(this, "Please input your first name and last name to check.");
+                return; // Exit the method to prevent further execution
+            }
+            
+            
+            
+
+            //check if we have this name at hte table:
+            Statement stm = dbCheckTicket.conn.createStatement();
+            String sql = "select * from bookedticket where UPPER(fname) ='"+fName+"' and UPPER(lname)= '"+lName+"'";           
+            ResultSet rs = stm.executeQuery(sql);
+            
+            if(rs.next()){
+                //if user name and password is true then go to Home page
+                
+                // If user name and password are true, then go to the ticket details page
+                String ticketDetails = "";
+
+                // Retrieve the values from the result set and concatenate them into the ticketDetails string
+                String ticketNum = rs.getString("TicketID");
+                String firstN = rs.getString("FName");
+                String lastN = rs.getString("LName");  
+                String fdate = rs.getString("flightdate");
+                String fDeparture = rs.getString("DepartCity");
+                String fArrival = rs.getString("ArrivalCity");
+                String ftime = rs.getString("flightTime");
+                String serviceC = rs.getString("class");
+                String fprice = rs.getString("Price");
+                // ... Add more columns as needed
+
+                ticketDetails += "Ticket Number: " + ticketNum + "\n";
+                ticketDetails += "+++++++++++++++++++++++++++++++++++++\n"; 
+                ticketDetails += "Passenger Details:\n";
+                ticketDetails += "First Name: " + firstN + "\n";
+                ticketDetails += "Last Name: " + lastN + "\n"; 
+                ticketDetails += "+++++++++++++++++++++++++++++++++++++\n"; 
+                ticketDetails += "Flight Details:\n";
+                ticketDetails += "Flight Date: " + fdate + "\n";
+                ticketDetails += "Departure City: " + fDeparture + "\n";
+                ticketDetails += "Arrival City: " + fArrival + "\n";
+                ticketDetails += "Flight time: " + ftime + "\n";
+                ticketDetails += "+++++++++++++++++++++++++++++++++++++\n"; 
+                ticketDetails += "Price Details:\n";
+                ticketDetails += "Service Class: " + serviceC + "\n";
+                ticketDetails += "Price: " + fprice + "\n";
+                // ... Concatenate more columns as needed
+                
+                
+                CheckTicket ticketDetail = new CheckTicket();
+                ticketDetail.jTextArea1.setText(ticketDetails);               
+                ticketDetail.show();
+                
+            } else {
+                //if hte username and pw is wrong show error:
+                
+
+                JOptionPane.showMessageDialog(this, "We can't find your ticket!");
+                
+            }
+            
+            dbCheckTicket.conn.close();
+            
+            
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+    }//GEN-LAST:event_checkBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -466,6 +556,7 @@ public class HomePage extends javax.swing.JFrame {
     private javax.swing.JButton btnConfirm;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.JButton checkBtn;
     private javax.swing.JTextField checkTicketFname;
     private javax.swing.JTextField checkTicketLname;
     private javax.swing.JSpinner child;
@@ -474,7 +565,6 @@ public class HomePage extends javax.swing.JFrame {
     private javax.swing.JRadioButton flightTimeAm;
     private javax.swing.JRadioButton flightTimePm;
     private javax.swing.JSpinner infants;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

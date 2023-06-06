@@ -17,16 +17,16 @@ public class Flight
 
     private String departure;
     private String destination;
-    //private String date;
+    private String date;
     private String time;
     //private boolean isInternational;
 
     // Constructor to initialise the Flight object
-    public Flight(String departure, String destination, String time)
+    public Flight(String departure, String destination, String date, String time)
     {
         this.departure = departure;
         this.destination = destination;
-        //this.date = date;
+        this.date = date;
         this.time = time;
         //this.isInternational = isInternational();
     }
@@ -56,16 +56,16 @@ public class Flight
     }
 
     //Getter method of date
-//    public String getDate()
-//    {
-//        return date;
-//    }
-//
-//    //Setter method of date
-//    public void setDate(String date)
-//    {
-//        this.date = date;
-//    }
+    public String getDate()
+    {
+        return date;
+    }
+
+    //Setter method of date
+    public void setDate(String date)
+    {
+        this.date = date;
+    }
 
     //Getter method of time
     public String getTime()
