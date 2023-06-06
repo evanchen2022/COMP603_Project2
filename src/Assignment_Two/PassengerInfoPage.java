@@ -19,13 +19,26 @@ import javax.swing.JTextField;
  */
 public class PassengerInfoPage extends javax.swing.JFrame
 {
-
+    private int totalPassengers;
+    private int processedPassengers;
+    
     /**
      * Creates new form PassengerInfoPage
      */
-    public PassengerInfoPage()
+     public PassengerInfoPage(int totalPassengers)
     {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.totalPassengers = totalPassengers;
+        this.processedPassengers = 0;
+    }
+     
+    public PassengerInfoPage(int totalPassengers, int processedPassengers)
+    {
+        initComponents();
+        this.setLocationRelativeTo(null);
+        this.totalPassengers = totalPassengers;
+        this.processedPassengers = processedPassengers;
     }
 
     /**
@@ -306,13 +319,6 @@ public class PassengerInfoPage extends javax.swing.JFrame
             return;
         }
         
-        // validation for address
-        if (!address.matches("^[a-zA-Z0-9]+"))
-        {
-            JOptionPane.showMessageDialog(null, "Invalid address. Only letters and numbers are allowed.", "Input Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        
         // validation for phoneNumber
         if (phoneNumber.trim().isEmpty() || !phoneNumber.matches("\\d+"))
         {
@@ -347,6 +353,15 @@ public class PassengerInfoPage extends javax.swing.JFrame
         }
 
         System.out.println("New passenger created: " + passenger.getFirstName() + " " + passenger.getLastName() + ", Type: " + passenger.getClass().getSimpleName());
+        
+        processedPassengers++;
+        
+        if(processedPassengers<totalPassengers)
+        {
+            PassengerInfoPage detailPage = new PassengerInfoPage(totalPassengers, processedPassengers);
+            detailPage.show();
+            this.dispose();
+        }
 
 
     }//GEN-LAST:event_confirmButtonActionPerformed
@@ -406,7 +421,7 @@ public class PassengerInfoPage extends javax.swing.JFrame
         {
             public void run()
             {
-                new PassengerInfoPage().setVisible(true);
+                new PassengerInfoPage(1).setVisible(true);
             }
         });
     }
