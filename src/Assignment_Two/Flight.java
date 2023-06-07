@@ -99,5 +99,12 @@ public class Flight
 
         return !(domesticAirports.contains(departure) && domesticAirports.contains(destination));
     }
+
+    @Override
+    public String toString() {
+        return "Flight{" + "departure=" + departure + ", destination=" + destination + ", date=" + date + ", time=" + time + '}';
+    }
+    
+    
 }
 

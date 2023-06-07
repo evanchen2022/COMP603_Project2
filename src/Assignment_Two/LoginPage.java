@@ -20,18 +20,13 @@ public class LoginPage extends javax.swing.JFrame {
     /**
      * Creates new form LoginPage
      */
-    //JPanel cardPane = new JPanel();      //for login and signup panel
-    //CardLayout card = new CardLayout();      //for different page chenge
-    
+    private DBOperations dbOps2;
     
     public LoginPage() {
         initComponents();
-        this.setLocationRelativeTo(null);
+        this.dbOps2 = new DBOperations();
         //alway shows the login page:
-        
-        
-        
-        
+  
         
     }
 
@@ -167,6 +162,16 @@ public class LoginPage extends javax.swing.JFrame {
             Statement stm = con.createStatement();
             String sql = "select * from users where username='"+username+"' and password= '"+password+"'";           
             ResultSet rs = stm.executeQuery(sql);
+            
+            //create a bookedticket table here:
+            if(!dbOps2.checkExistedTable("BookedTicket"))
+            {
+                dbOps2.createBookedTicketTable();
+            } 
+            else 
+            {
+                System.out.println("Already have BookedTicket table!!");
+            }
             
             if(rs.next()){
                 //if user name and password is true then go to Home page

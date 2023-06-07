@@ -20,10 +20,12 @@ public class SignupPage extends javax.swing.JFrame {
     /**
      * Creates new form SignupPage
      */
+    private DBOperations dbOP;
+    
     public SignupPage() {
         initComponents();
         this.setLocationRelativeTo(null);
-        
+        this.dbOP = new DBOperations();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
 
@@ -140,58 +142,34 @@ public class SignupPage extends javax.swing.JFrame {
 
     private void signupBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signupBtnActionPerformed
          // TODO add your handling code here:
-         try {
-            //built a connecting with database, this one need to change in the future:
-            DBManager dbSign = new DBManager();
-
-            //get the user name and password from text file:
-            String newUserName = UserName.getText();
-            String newPw = pwFirst.getText();
-            String newPw2 = pw.getText();
-            int numberIndex = 0;
-            
-             // validation for user Name
-             if (!newUserName.matches("[a-zA-Z]+") || newUserName == null) {
-                 JOptionPane.showMessageDialog(null, "Invalid first name. Only letters are allowed.", "Input Error", JOptionPane.ERROR_MESSAGE);
-                 return;
-             }
-
-            // Check if password is match
-            if (newPw.compareTo(newPw2) != 0) {
-                JOptionPane.showMessageDialog(this, "Please enter a correct password!");
-                return; // Exit the method to prevent further execution
-            }
-
-            
-
-            //check userID numebr first 
-            Statement stm = dbSign.conn.createStatement();
-            String sql1 = "SELECT COUNT(*) AS row_count FROM users";
-            ResultSet rs = stm.executeQuery(sql1);
-            
-             // Retrieve the row count
-             if (rs.next()) {
-                 numberIndex = rs.getInt("row_count");
-             }
-
-            // Insert the new record
-             String sql2 = "INSERT INTO users (USERID, USERNAME, PASSWORD) VALUES (?, ?, ?)";
-             PreparedStatement pstmt = dbSign.conn.prepareStatement(sql2);
-             pstmt.setInt(1, numberIndex + 1); // Set the USERID value
-             pstmt.setString(2, newUserName); // Set the USERNAME value
-             pstmt.setString(3, newPw); // Set the PASSWORD value
-             pstmt.executeUpdate();
-
-             System.out.println("Record inserted successfully");
-           
-            System.out.println(numberIndex);
-            dbSign.conn.close();
-            JOptionPane.showMessageDialog(this, "Successfully sign up!");
-            this.dispose();
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+         String newUserName = UserName.getText();
+         String newPw = pwFirst.getText();
+         String newPw2 = pw.getText();
+         
+                  // validation for user Name
+        if (!newUserName.matches("[a-zA-Z]+") || newUserName == null) {
+            JOptionPane.showMessageDialog(null, "Invalid first name. Only letters are allowed.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
+
+        // Check if password is match
+        if (newPw.compareTo(newPw2) != 0) {
+            JOptionPane.showMessageDialog(this, "Please enter a correct password!");
+            return; // Exit the method to prevent further execution
+        }
+         
+        if (dbOP.checkExistedTable("Users")) {
+            dbOP.insertUserInfo(newUserName, newPw2);
+        }
+        else
+        {
+            dbOP.createUsersTable();
+            dbOP.insertUserInfo(newUserName, newPw2);
+        }
+         
+         JOptionPane.showMessageDialog(this, "Successfully sign up!");
+         this.dispose();
+
     }//GEN-LAST:event_signupBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed

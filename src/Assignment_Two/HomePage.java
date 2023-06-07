@@ -22,10 +22,14 @@ public class HomePage extends javax.swing.JFrame {
      */
     
     private String flightT = null;
+    //private DBOperations dbOps01;
+    public Flight newFlight;
     
     public HomePage() {
         initComponents();
         this.setLocationRelativeTo(null);
+        //dbOps01.createBookedTicketTable();
+        
     }
 
     public String getFlightT() {
@@ -363,6 +367,7 @@ public class HomePage extends javax.swing.JFrame {
             int passengerNo = (Integer)adult.getValue() + (Integer)child.getValue() + (Integer)infants.getValue();
             String serviceClass = serviceC.getSelectedItem().toString();
             
+            
             // Check if flightTime is empty
             if (flightTime == null) {
                 JOptionPane.showMessageDialog(this, "Please select a flight time.");
@@ -379,7 +384,13 @@ public class HomePage extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Please select date time after today.");
                 return; // Exit the method to prevent further execution
             } 
-
+            
+            
+            //after the input, create a new flight for next page!!!!
+            newFlight = new Flight(departCT, arrivalCT, flightDate, flightTime);
+            
+            System.out.println("This line for testing: check if the newFLight object is correctly create.");
+            System.out.println(newFlight.toString());
 
             //check if we have this name at hte table:
             Statement stm = dbFlight.conn.createStatement();
@@ -500,10 +511,7 @@ public class HomePage extends javax.swing.JFrame {
                 
             } else {
                 //if hte username and pw is wrong show error:
-                
-
-                JOptionPane.showMessageDialog(this, "We can't find your ticket!");
-                
+                JOptionPane.showMessageDialog(this, "We can't find your ticket!");              
             }
             
             dbCheckTicket.conn.close();
