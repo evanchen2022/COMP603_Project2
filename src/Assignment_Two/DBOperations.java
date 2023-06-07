@@ -25,18 +25,31 @@ public class DBOperations
         dbManager = new DBManager();
         //createPassengerInfoTable();
     }
+<<<<<<< Updated upstream
 
+=======
+    
+>>>>>>> Stashed changes
 //    public static DBOperations getInstance() {
 //        if (instance == null) {
 //            instance = new DBOperations();
 //        }
 //        return instance;
 //    }
+<<<<<<< Updated upstream
     // Check if a table exists
     public boolean checkExistedTable(String tableName)
     {
         Connection connection = dbManager.conn;
         boolean tableExists = false;
+=======
+
+    // Check if a table exists, delete it if exist
+    public void checkExistedTable(String tableName)
+    {
+        Connection connection = dbManager.conn;
+        Statement statement = null;
+>>>>>>> Stashed changes
 
         try
         {
@@ -45,14 +58,28 @@ public class DBOperations
             {
                 "TABLE"
             });
+<<<<<<< Updated upstream
             tableExists = rs.next();
+=======
+
+            if (rs.next())
+            {
+                statement = connection.createStatement();
+                statement.executeUpdate("DROP TABLE " + tableName);
+                System.out.println("Table " + tableName + " has been deleted.");
+            }
+
+>>>>>>> Stashed changes
             rs.close();
         } catch (SQLException ex)
         {
             System.out.println(ex.getMessage());
         }
+<<<<<<< Updated upstream
 
         return tableExists;
+=======
+>>>>>>> Stashed changes
     }
 
     // Create "PassengerInfo" table
@@ -63,6 +90,7 @@ public class DBOperations
 
         try
         {
+<<<<<<< Updated upstream
             if (!checkExistedTable("PassengerInfo"))
             {
                 System.out.println("Creating PassengerInfo table in the database...");
@@ -81,6 +109,25 @@ public class DBOperations
                 statement.execute(sqlCreateTable);
                 System.out.println("PassengerInfo table created successfully.");
             }
+=======
+            checkExistedTable("PassengerInfo");
+            System.out.println("Creating PassengerInfo table in the database...");
+            String sqlCreateTable = "CREATE TABLE PassengerInfo ("
+                    + "passengerID INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), "
+                    + "firstName VARCHAR(50), "
+                    + "lastName VARCHAR(50), "
+                    + "passportNumber VARCHAR(50), "
+                    + "dob VARCHAR(20), "
+                    + "address VARCHAR(100), "
+                    + "phoneNumber VARCHAR(20), "
+                    + "email VARCHAR(50), "
+                    + "clientNumber VARCHAR(20))";
+
+            statement = connection.createStatement();
+            statement.execute(sqlCreateTable);
+
+            System.out.println("PassengerInfo table created successfully.");
+>>>>>>> Stashed changes
         } catch (SQLException ex)
         {
             System.out.println(ex.getMessage());
