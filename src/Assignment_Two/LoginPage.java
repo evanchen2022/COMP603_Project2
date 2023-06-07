@@ -198,6 +198,8 @@ public class LoginPage extends javax.swing.JFrame {
 
     private void btnSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignupActionPerformed
         // TODO add your handling code here:
+        SignupPage newPage = new SignupPage();
+        newPage.show();
         
     }//GEN-LAST:event_btnSignupActionPerformed
 
