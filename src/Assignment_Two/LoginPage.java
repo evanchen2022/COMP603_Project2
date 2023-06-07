@@ -15,19 +15,19 @@ import javax.swing.JPanel;
  *
  * @author evan
  */
-public class LoginPage extends javax.swing.JFrame {
+public class LoginPage extends javax.swing.JFrame
+{
 
     /**
      * Creates new form LoginPage
      */
-    private DBOperations dbOps2;
-    
-    public LoginPage() {
+    private UserController userController;
+
+    public LoginPage()
+    {
         initComponents();
-        this.dbOps2 = new DBOperations();
-        //alway shows the login page:
-  
-        
+        UserModel userModel = new UserModel();
+        this.userController = new UserController(userModel);
     }
 
     /**
@@ -146,55 +146,29 @@ public class LoginPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        // TODO add your handling code here:
-        //login code here: 
-        //step1: get the user name from database and check, if not in the database then show error:
-        try {
-            //built a connecting with database, this one need to change in the future:
-            UserModel newConn = new UserModel(); 
-            Connection con = newConn.userPart.conn;
-            
-            //get the user name and password from database:
+
+        try
+        {
             String username = textUserName.getText();
             String password = textPassword.getText();
-            
-            //check if we have this name at hte table:
-            Statement stm = con.createStatement();
-            String sql = "select * from users where username='"+username+"' and password= '"+password+"'";           
-            ResultSet rs = stm.executeQuery(sql);
-            
-            //create a bookedticket table here:
-            if(!dbOps2.checkExistedTable("BookedTicket"))
+
+            if (userController.verifyUser(username, password))
             {
-                dbOps2.createBookedTicketTable();
-            } 
-            else 
-            {
-                System.out.println("Already have BookedTicket table!!");
-            }
-            
-            if(rs.next()){
-                //if user name and password is true then go to Home page
-                
-                
-                dispose();  //close the login page\
+                dispose();
                 HomePage homePage = new HomePage();
                 homePage.show();
-            } else {
-                //if hte username and pw is wrong show error:
+            }
+            else
+            {
                 JOptionPane.showMessageDialog(this, "User Name or Password wrong...");
                 textUserName.setText("");
                 textPassword.setText("");
             }
-            
-            con.close();
-            
-            
-            
-        } catch (Exception e) {
+
+        } catch (Exception e)
+        {
             System.out.println(e.getMessage());
         }
-        
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void textUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textUserNameActionPerformed
@@ -205,39 +179,49 @@ public class LoginPage extends javax.swing.JFrame {
         // TODO add your handling code here:
         SignupPage newPage = new SignupPage();
         newPage.show();
-        
+
     }//GEN-LAST:event_btnSignupActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[])
+    {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex)
+        {
             java.util.logging.Logger.getLogger(LoginPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
+        } catch (InstantiationException ex)
+        {
             java.util.logging.Logger.getLogger(LoginPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+        } catch (IllegalAccessException ex)
+        {
             java.util.logging.Logger.getLogger(LoginPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
             java.util.logging.Logger.getLogger(LoginPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+        java.awt.EventQueue.invokeLater(new Runnable()
+        {
+            public void run()
+            {
                 new LoginPage().setVisible(true);
             }
         });

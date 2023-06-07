@@ -13,16 +13,12 @@ import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-/**
- *
- * @author T470s
- */
 public class PassengerInfoPage extends javax.swing.JFrame
 {
 
     private int totalPassengers;
     private int processedPassengers;
-    private DBOperations dbOps;
+    private PassengerInfoController passengerInfoController;
 
     /**
      * Creates new form PassengerInfoPage
@@ -33,8 +29,9 @@ public class PassengerInfoPage extends javax.swing.JFrame
         this.setLocationRelativeTo(null);
         this.totalPassengers = totalPassengers;
         this.processedPassengers = 0;
-        this.dbOps = new DBOperations();
-        this.dbOps.createPassengerInfoTable();
+        this.passengerInfoController = new PassengerInfoController(new UserModel());
+        passengerInfoController.createPassengerInfoTable();
+
     }
 
     public PassengerInfoPage(int totalPassengers, int processedPassengers)
@@ -43,8 +40,8 @@ public class PassengerInfoPage extends javax.swing.JFrame
         this.setLocationRelativeTo(null);
         this.totalPassengers = totalPassengers;
         this.processedPassengers = processedPassengers;
-        this.dbOps = new DBOperations();
-        this.dbOps.createPassengerInfoTable();
+        this.passengerInfoController = new PassengerInfoController(new UserModel());
+        passengerInfoController.createPassengerInfoTable();
     }
 
     public void setPassengerNumber(int passengerNumber)
@@ -363,7 +360,7 @@ public class PassengerInfoPage extends javax.swing.JFrame
 
         System.out.println("New passenger created: " + passenger.getFirstName() + " " + passenger.getLastName() + ", Type: " + passenger.getClass().getSimpleName());
 
-        dbOps.insertPassengerInfo(firstName, lastName, passportNumber, dob, address, phoneNumber, email, clientNumber);
+        passengerInfoController.insertPassengerInfo(passenger);
 
         processedPassengers++;
 

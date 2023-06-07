@@ -22,14 +22,14 @@ public class HomePage extends javax.swing.JFrame {
      */
     
     private String flightT = null;
-    //private DBOperations dbOps01;
+    private HomeController homeController;
     public Flight newFlight;
     
     public HomePage() {
         initComponents();
         this.setLocationRelativeTo(null);
-        //dbOps01.createBookedTicketTable();
-        
+        this.homeController = new HomeController(new UserModel());
+        homeController.createBookedTicketTable();
     }
 
     public String getFlightT() {

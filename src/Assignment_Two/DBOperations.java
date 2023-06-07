@@ -26,14 +26,13 @@ public class DBOperations
         dbManager = new DBManager();
         //createPassengerInfoTable();
     }
-    
+
 //    public static DBOperations getInstance() {
 //        if (instance == null) {
 //            instance = new DBOperations();
 //        }
 //        return instance;
 //    }
-
     // Check if a table exists, delete it if exist
     // 改为boolean的method， 返回true or false
     public boolean checkExistedTable(String tableName)
@@ -57,16 +56,18 @@ public class DBOperations
 
         return tableExists;
     }
-    
+
     // Create "BookedTicket" table
     public void createBookedTicketTable()
     {
-        Connection connection = dbManager.conn;
-        Statement statement = null;
-
-        try
+        if (!checkExistedTable("BookedTicket"))
         {
-            
+            Connection connection = dbManager.conn;
+            Statement statement = null;
+
+            try
+            {
+
                 System.out.println("Creating BookedTicket table in the database...");
                 String sqlCreateTable = "CREATE TABLE BookedTicket ("
                         + "ticketID INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), "
@@ -82,25 +83,26 @@ public class DBOperations
                 statement = connection.createStatement();
                 statement.execute(sqlCreateTable);
                 System.out.println("BookedTicket table created successfully.");
-            
-        } catch (SQLException ex)
-        {
-            System.out.println(ex.getMessage());
-        } finally
-        {
-            if (statement != null)
+
+            } catch (SQLException ex)
             {
-                try
+                System.out.println(ex.getMessage());
+            } finally
+            {
+                if (statement != null)
                 {
-                    statement.close();
-                } catch (SQLException ex)
-                {
-                    System.out.println(ex.getMessage());
+                    try
+                    {
+                        statement.close();
+                    } catch (SQLException ex)
+                    {
+                        System.out.println(ex.getMessage());
+                    }
                 }
             }
         }
     }
-    
+
     // Inserts NEW Booked Ticket information into "BookedTicket" table
     public void insertBookedTicket(String firstName, String lastName, String flightDate, String departCity, String arrivalCity, String flightTime, String classService, String price)
     {
@@ -117,7 +119,7 @@ public class DBOperations
             statement.execute(sqlInsert);
 
             System.out.println("New Booked Ticket inserted successfully.");
-            
+
         } catch (SQLException ex)
         {
             System.out.println(ex.getMessage());
@@ -135,7 +137,7 @@ public class DBOperations
             }
         }
     }
-    
+
     // Create "PassengerInfo" table
     public void createPassengerInfoTable()
     {
@@ -180,39 +182,35 @@ public class DBOperations
     }
 
     // Inserts passenger information into "PassengerInfo" table
-    public void insertPassengerInfo(String firstName, String lastName, String passportNumber, String dob, String address, String phoneNumber, String email, String clientNumber)
-    {
-        Connection connection = dbManager.conn;
-        Statement statement = null;
-
-        try
-        {
-            System.out.println("Inserting passenger info into the PassengerInfo table...");
-            String sqlInsert = "INSERT INTO PassengerInfo (firstName, lastName, passportNumber, dob, address, phoneNumber, email, clientNumber) "
-                    + "VALUES ('" + firstName + "', '" + lastName + "', '" + passportNumber + "', '" + dob + "', '" + address + "', '" + phoneNumber + "', '" + email + "', '" + clientNumber + "')";
-
-            statement = connection.createStatement();
-            statement.execute(sqlInsert);
-
-            System.out.println("Passenger info inserted successfully.");
-        } catch (SQLException ex)
-        {
-            System.out.println(ex.getMessage());
-        } finally
-        {
-            if (statement != null)
-            {
-                try
-                {
-                    statement.close();
-                } catch (SQLException ex)
-                {
-                    System.out.println(ex.getMessage());
-                }
+    public void insertPassengerInfo(PassengerInfo passenger) {
+    Connection connection = dbManager.conn;
+    PreparedStatement statement = null;
+    String sqlQuery = "INSERT INTO PassengerInfo (firstName, lastName, passportNumber, dob, address, phoneNumber, email, clientNumber) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    try {
+        statement = connection.prepareStatement(sqlQuery);
+        statement.setString(1, passenger.getFirstName());
+        statement.setString(2, passenger.getLastName());
+        statement.setString(3, passenger.getPassportNumber());
+        statement.setString(4, passenger.getDateOfBirth().toString());
+        statement.setString(5, passenger.getAddress());
+        statement.setString(6, passenger.getPhoneNumber());
+        statement.setString(7, passenger.getEmail());
+        statement.setString(8, passenger.getClientNumber());
+        statement.executeUpdate();
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    } finally {
+        if (statement != null) {
+            try {
+                statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
     }
-    
+}
+
+
     // Create "Users" table
     public void createUsersTable()
     {
@@ -227,7 +225,6 @@ public class DBOperations
                     + "userID INTEGER PRIMARY KEY, "
                     + "userName VARCHAR(50), "
                     + "password VARCHAR(50), ";
-                    
 
             statement = connection.createStatement();
             statement.execute(sqlCreateTable);
@@ -250,24 +247,25 @@ public class DBOperations
             }
         }
     }
-    
+
     // Inserts new user information into "Users" table
     public void insertUserInfo(String UserName, String pw)
     {
-        
-        
+
         Connection connection = dbManager.conn;
         Statement statement = null;
         int numberIndex = 0;
-        
-        try {
+
+        try
+        {
             //check userID numebr first 
             Statement stm = connection.createStatement();
             String sql1 = "SELECT COUNT(*) AS row_count FROM users";
             ResultSet rs = stm.executeQuery(sql1);
 
             // Retrieve the row count
-            if (rs.next()) {
+            if (rs.next())
+            {
                 numberIndex = rs.getInt("row_count");
             }
 
@@ -280,11 +278,11 @@ public class DBOperations
             pstmt.executeUpdate();
 
             System.out.println("New User inserted successfully");
-        } catch (SQLException ex) {
+        } catch (SQLException ex)
+        {
             System.out.println(ex.getMessage());
         }
 
-        
     }
 
     // Get passenger information from "PassengerInfo" table
@@ -343,4 +341,60 @@ public class DBOperations
         }
 
     }
+
+    public boolean checkUser(String username, String password)
+    {
+        Connection connection = dbManager.conn;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+
+        try
+        {
+            String sqlQuery = "SELECT * FROM Users WHERE username = ? AND password = ?";
+            statement = connection.prepareStatement(sqlQuery);
+            statement.setString(1, username);
+            statement.setString(2, password);
+
+            rs = statement.executeQuery();
+
+            if (rs.next())
+            {
+                // User exists
+                return true;
+            }
+            else
+            {
+                // User doesn't exist
+                return false;
+            }
+
+        } catch (SQLException ex)
+        {
+            System.out.println(ex.getMessage());
+            return false;
+        } finally
+        {
+            if (rs != null)
+            {
+                try
+                {
+                    rs.close();
+                } catch (SQLException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+            if (statement != null)
+            {
+                try
+                {
+                    statement.close();
+                } catch (SQLException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
 }
