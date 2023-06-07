@@ -6,6 +6,7 @@ package Assignment_Two;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -34,10 +35,11 @@ public class DBOperations
 //    }
 
     // Check if a table exists, delete it if exist
-    public void checkExistedTable(String tableName)
+    // 改为boolean的method， 返回true or false
+    public boolean checkExistedTable(String tableName)
     {
         Connection connection = dbManager.conn;
-        Statement statement = null;
+        boolean tableExists = false;
 
         try
         {
@@ -46,21 +48,94 @@ public class DBOperations
             {
                 "TABLE"
             });
-
-            if (rs.next())
-            {
-                statement = connection.createStatement();
-                statement.executeUpdate("DROP TABLE " + tableName);
-                System.out.println("Table " + tableName + " has been deleted.");
-            }
-
+            tableExists = rs.next();
             rs.close();
         } catch (SQLException ex)
         {
             System.out.println(ex.getMessage());
         }
-    }
 
+        return tableExists;
+    }
+    
+    // Create "BookedTicket" table
+    public void createBookedTicketTable()
+    {
+        Connection connection = dbManager.conn;
+        Statement statement = null;
+
+        try
+        {
+            
+                System.out.println("Creating BookedTicket table in the database...");
+                String sqlCreateTable = "CREATE TABLE BookedTicket ("
+                        + "ticketID INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), "
+                        + "firstName VARCHAR(50), "
+                        + "lastName VARCHAR(50), "
+                        + "flightDate VARCHAR(50), "
+                        + "departCity VARCHAR(50), "
+                        + "arrivalCity VARCHAR(50), "
+                        + "flightTime VARCHAR(20), "
+                        + "flightClass VARCHAR(50), "
+                        + "price DOUBLE(20))";
+
+                statement = connection.createStatement();
+                statement.execute(sqlCreateTable);
+                System.out.println("BookedTicket table created successfully.");
+            
+        } catch (SQLException ex)
+        {
+            System.out.println(ex.getMessage());
+        } finally
+        {
+            if (statement != null)
+            {
+                try
+                {
+                    statement.close();
+                } catch (SQLException ex)
+                {
+                    System.out.println(ex.getMessage());
+                }
+            }
+        }
+    }
+    
+    // Inserts NEW Booked Ticket information into "BookedTicket" table
+    public void insertBookedTicket(String firstName, String lastName, String flightDate, String departCity, String arrivalCity, String flightTime, String classService, String price)
+    {
+        Connection connection = dbManager.conn;
+        Statement statement = null;
+
+        try
+        {
+            System.out.println("Inserting booked Ticket information into the BookedTicket table...");
+            String sqlInsert = "INSERT INTO BookedTicket (firstName, lastName, flightDate, departCity, arrivalCity, flightTime, flightClass, price) "
+                    + "VALUES ('" + firstName + "', '" + lastName + "', '" + flightDate + "', '" + departCity + "', '" + arrivalCity + "', '" + flightTime + "', '" + classService + "', '" + price + "')";
+
+            statement = connection.createStatement();
+            statement.execute(sqlInsert);
+
+            System.out.println("New Booked Ticket inserted successfully.");
+            
+        } catch (SQLException ex)
+        {
+            System.out.println(ex.getMessage());
+        } finally
+        {
+            if (statement != null)
+            {
+                try
+                {
+                    statement.close();
+                } catch (SQLException ex)
+                {
+                    System.out.println(ex.getMessage());
+                }
+            }
+        }
+    }
+    
     // Create "PassengerInfo" table
     public void createPassengerInfoTable()
     {
@@ -136,6 +211,80 @@ public class DBOperations
                 }
             }
         }
+    }
+    
+    // Create "Users" table
+    public void createUsersTable()
+    {
+        Connection connection = dbManager.conn;
+        Statement statement = null;
+
+        try
+        {
+            checkExistedTable("Users");
+            System.out.println("Creating PassengerInfo table in the database...");
+            String sqlCreateTable = "CREATE TABLE Users ("
+                    + "userID INTEGER PRIMARY KEY, "
+                    + "userName VARCHAR(50), "
+                    + "password VARCHAR(50), ";
+                    
+
+            statement = connection.createStatement();
+            statement.execute(sqlCreateTable);
+
+            System.out.println("Users table created successfully.");
+        } catch (SQLException ex)
+        {
+            System.out.println(ex.getMessage());
+        } finally
+        {
+            if (statement != null)
+            {
+                try
+                {
+                    statement.close();
+                } catch (SQLException ex)
+                {
+                    System.out.println(ex.getMessage());
+                }
+            }
+        }
+    }
+    
+    // Inserts new user information into "Users" table
+    public void insertUserInfo(String UserName, String pw)
+    {
+        
+        
+        Connection connection = dbManager.conn;
+        Statement statement = null;
+        int numberIndex = 0;
+        
+        try {
+            //check userID numebr first 
+            Statement stm = connection.createStatement();
+            String sql1 = "SELECT COUNT(*) AS row_count FROM users";
+            ResultSet rs = stm.executeQuery(sql1);
+
+            // Retrieve the row count
+            if (rs.next()) {
+                numberIndex = rs.getInt("row_count");
+            }
+
+            // Insert the new record
+            String sql2 = "INSERT INTO users (USERID, USERNAME, PASSWORD) VALUES (?, ?, ?)";
+            PreparedStatement pstmt = connection.prepareStatement(sql2);
+            pstmt.setInt(1, numberIndex + 1); // Set the USERID value
+            pstmt.setString(2, UserName); // Set the USERNAME value
+            pstmt.setString(3, pw); // Set the PASSWORD value
+            pstmt.executeUpdate();
+
+            System.out.println("New User inserted successfully");
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        
     }
 
     // Get passenger information from "PassengerInfo" table
