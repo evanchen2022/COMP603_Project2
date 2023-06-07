@@ -10,18 +10,34 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class UserModel                  //jdbc:derby:BookingSystem;create=true//this one for embrace database.
-{                                       //jdbc:derby://localhost:1527/BookingSystem//this one for server database
+public class UserModel                  
+{                                       
+
     public DBManager userPart;
     public DBOperations userOper;
-    
+
     public UserModel()
     {
         userPart = new DBManager();
         userOper = new DBOperations();
     }
 
+    public boolean checkUser(String username, String password) throws SQLException
+    {
+        return userOper.checkUser(username, password);
+    }
+    
+    public void createBookedTicketTable() throws SQLException {
+        userOper.createBookedTicketTable();
+    }
+    
+    public void createPassengerInfoTable() {
+        userOper.createPassengerInfoTable();
+    }
 
+    public void insertPassengerInfo(PassengerInfo passenger) {
+        userOper.insertPassengerInfo(passenger);
+    }
 
 
 
@@ -91,7 +107,4 @@ public class UserModel                  //jdbc:derby:BookingSystem;create=true//
 //        return resultSet;
 //    }
 //    
-    
-    
-    
 }
