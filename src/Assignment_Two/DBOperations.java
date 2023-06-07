@@ -25,19 +25,18 @@ public class DBOperations
         dbManager = new DBManager();
         //createPassengerInfoTable();
     }
-    
+
 //    public static DBOperations getInstance() {
 //        if (instance == null) {
 //            instance = new DBOperations();
 //        }
 //        return instance;
 //    }
-
-    // Check if a table exists, delete it if exist
-    public void checkExistedTable(String tableName)
+    // Check if a table exists
+    public boolean checkExistedTable(String tableName)
     {
         Connection connection = dbManager.conn;
-        Statement statement = null;
+        boolean tableExists = false;
 
         try
         {
@@ -46,19 +45,14 @@ public class DBOperations
             {
                 "TABLE"
             });
-
-            if (rs.next())
-            {
-                statement = connection.createStatement();
-                statement.executeUpdate("DROP TABLE " + tableName);
-                System.out.println("Table " + tableName + " has been deleted.");
-            }
-
+            tableExists = rs.next();
             rs.close();
         } catch (SQLException ex)
         {
             System.out.println(ex.getMessage());
         }
+
+        return tableExists;
     }
 
     // Create "PassengerInfo" table
@@ -69,23 +63,24 @@ public class DBOperations
 
         try
         {
-            checkExistedTable("PassengerInfo");
-            System.out.println("Creating PassengerInfo table in the database...");
-            String sqlCreateTable = "CREATE TABLE PassengerInfo ("
-                    + "passengerID INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), "
-                    + "firstName VARCHAR(50), "
-                    + "lastName VARCHAR(50), "
-                    + "passportNumber VARCHAR(50), "
-                    + "dob VARCHAR(20), "
-                    + "address VARCHAR(100), "
-                    + "phoneNumber VARCHAR(20), "
-                    + "email VARCHAR(50), "
-                    + "clientNumber VARCHAR(20))";
+            if (!checkExistedTable("PassengerInfo"))
+            {
+                System.out.println("Creating PassengerInfo table in the database...");
+                String sqlCreateTable = "CREATE TABLE PassengerInfo ("
+                        + "passengerID INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), "
+                        + "firstName VARCHAR(50), "
+                        + "lastName VARCHAR(50), "
+                        + "passportNumber VARCHAR(50), "
+                        + "dob VARCHAR(20), "
+                        + "address VARCHAR(100), "
+                        + "phoneNumber VARCHAR(20), "
+                        + "email VARCHAR(50), "
+                        + "clientNumber VARCHAR(20))";
 
-            statement = connection.createStatement();
-            statement.execute(sqlCreateTable);
-
-            System.out.println("PassengerInfo table created successfully.");
+                statement = connection.createStatement();
+                statement.execute(sqlCreateTable);
+                System.out.println("PassengerInfo table created successfully.");
+            }
         } catch (SQLException ex)
         {
             System.out.println(ex.getMessage());
