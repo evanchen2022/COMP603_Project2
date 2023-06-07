@@ -1,25 +1,13 @@
-Tue Jun 06 17:10:55 NZST 2023 : Apache Derby Network Server - 10.14.2.0 - (1828579) started and ready to accept connections on port 1527
 ----------------------------------------------------------------
-<<<<<<< Updated upstream
-Tue Jun 06 17:10:55 NZST 2023:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0188-8f1d-8017-00006649e988 
-on database directory C:\Users\T470s\Documents\GitHub\COMP603_Project2\BookingSystem with class loader sun.misc.Launcher$AppClassLoader@1d44bcfa 
-Loaded from file:/C:/Users/T470s/Downloads/db-derby-10.14.2.0-bin/lib/derby.jar
-=======
-Tue Jun 06 18:20:53 NZST 2023:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0188-8f5d-8f18-000012954d10 
+Wed Jun 07 13:02:24 NZST 2023:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0188-9360-56e7-000012954e88 
 on database directory C:\Users\T470s\Documents\GitHub\COMP603_Project2\BookingSystem with class loader sun.misc.Launcher$AppClassLoader@5c647e05 
 Loaded from file:/C:/Users/T470s/Documents/GitHub/COMP603_Project2/lib/derby.jar
->>>>>>> Stashed changes
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_361-b09
-user.dir=C:\Users\T470s\Downloads\db-derby-10.14.2.0-bin
+user.dir=C:\Users\T470s\Documents\GitHub\COMP603_Project2
 os.name=Windows 10
 os.arch=amd64
 os.version=10.0
-<<<<<<< Updated upstream
-derby.system.home=C:\Users\T470s\Documents\GitHub\COMP603_Project2
-=======
 derby.system.home=null
->>>>>>> Stashed changes
 Database Class Loader started - derby.database.classpath=''
