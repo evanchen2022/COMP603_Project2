@@ -23,16 +23,8 @@ public class DBOperations
     public DBOperations()
     {
         dbManager = new DBManager();
-        //createPassengerInfoTable();
     }
 
-//    public static DBOperations getInstance() {
-//        if (instance == null) {
-//            instance = new DBOperations();
-//        }
-//        return instance;
-//    }
-    // Check if a table exists
     public boolean checkExistedTable(String tableName)
     {
         Connection connection = dbManager.conn;
