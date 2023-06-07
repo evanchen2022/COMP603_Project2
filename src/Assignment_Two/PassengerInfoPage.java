@@ -19,32 +19,38 @@ import javax.swing.JTextField;
  */
 public class PassengerInfoPage extends javax.swing.JFrame
 {
+
     private int totalPassengers;
     private int processedPassengers;
-    
+    private DBOperations dbOps;
+
     /**
      * Creates new form PassengerInfoPage
      */
-     public PassengerInfoPage(int totalPassengers)
+    public PassengerInfoPage(int totalPassengers)
     {
         initComponents();
         this.setLocationRelativeTo(null);
         this.totalPassengers = totalPassengers;
         this.processedPassengers = 0;
+        this.dbOps = new DBOperations();
+        this.dbOps.createPassengerInfoTable();
     }
-     
+
     public PassengerInfoPage(int totalPassengers, int processedPassengers)
     {
         initComponents();
         this.setLocationRelativeTo(null);
         this.totalPassengers = totalPassengers;
         this.processedPassengers = processedPassengers;
+        this.dbOps = new DBOperations();
+        this.dbOps.createPassengerInfoTable();
     }
-    
-    public void setPassengerNumber(int passengerNumber) {
-    jLabel1.setText("Passenger " + passengerNumber + " Information");
-}
 
+    public void setPassengerNumber(int passengerNumber)
+    {
+        jLabel1.setText("Passenger " + passengerNumber + " Information");
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -183,11 +189,8 @@ public class PassengerInfoPage extends javax.swing.JFrame
                 .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(clientNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(confirmButton, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(clientNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7)
                             .addComponent(addressField, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -206,12 +209,14 @@ public class PassengerInfoPage extends javax.swing.JFrame
                             .addComponent(jLabel6)
                             .addComponent(jLabel9)
                             .addComponent(jLabel5)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(phoneNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(120, 120, 120)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8)
-                                    .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(confirmButton, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(phoneNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(120, 120, 120)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel8)
+                                        .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addContainerGap(80, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -255,13 +260,12 @@ public class PassengerInfoPage extends javax.swing.JFrame
                     .addComponent(phoneNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(clientNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(clientNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(confirmButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39))
+                .addGap(21, 21, 21))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
@@ -323,7 +327,7 @@ public class PassengerInfoPage extends javax.swing.JFrame
             JOptionPane.showMessageDialog(null, "Invalid date format. Please enter date of birth in yyyy-MM-dd format.", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
+
         // validation for phoneNumber
         if (phoneNumber.trim().isEmpty() || !phoneNumber.matches("\\d+"))
         {
@@ -337,7 +341,7 @@ public class PassengerInfoPage extends javax.swing.JFrame
             JOptionPane.showMessageDialog(null, "Invalid email format.", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         //LocalDate dateOfBirth = LocalDate.parse(dob, formatter);
         LocalDate now = LocalDate.now();
@@ -358,14 +362,23 @@ public class PassengerInfoPage extends javax.swing.JFrame
         }
 
         System.out.println("New passenger created: " + passenger.getFirstName() + " " + passenger.getLastName() + ", Type: " + passenger.getClass().getSimpleName());
-        
+
+        dbOps.insertPassengerInfo(firstName, lastName, passportNumber, dob, address, phoneNumber, email, clientNumber);
+
         processedPassengers++;
-        
-        if(processedPassengers<totalPassengers)
+
+        if (processedPassengers < totalPassengers)
         {
             PassengerInfoPage detailPage = new PassengerInfoPage(totalPassengers, processedPassengers);
-            detailPage.setPassengerNumber(processedPassengers+1);
+            detailPage.setPassengerNumber(processedPassengers + 1);
             detailPage.show();
+            this.dispose();
+        }
+        else if (processedPassengers == totalPassengers)
+        {
+            // If all passengers have been processed, show the TicketSummaryPage
+            TicketSummaryPage summaryPage = new TicketSummaryPage(totalPassengers);
+            summaryPage.show();
             this.dispose();
         }
 

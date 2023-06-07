@@ -1,11 +1,11 @@
 /build/
 # Ignore lock and log files
-BookingSystem/db.lck
-BookingSystem/log/
-derby.log
-BookingSystem/log/log.ctrl
-BookingSystem/log/log1.dat
-BookingSystem/log/logmirror.ctrl
+#BookingSystem/db.lck
+
+##derby.log
+#BookingSystem/log/log.ctrl
+#BookingSystem/log/log1.dat
+#BookingSystem/log/logmirror.ctrl
 
 # Ignore NetBeans specific files
-nbproject/private/
+#nbproject/private/
