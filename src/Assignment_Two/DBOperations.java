@@ -78,7 +78,7 @@ public class DBOperations
                         + "arrivalCity VARCHAR(50), "
                         + "flightTime VARCHAR(20), "
                         + "flightClass VARCHAR(50), "
-                        + "price DOUBLE(20))";
+                        + "price VARCHAR(20))";
 
                 statement = connection.createStatement();
                 statement.execute(sqlCreateTable);

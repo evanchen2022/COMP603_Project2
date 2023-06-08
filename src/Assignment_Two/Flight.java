@@ -19,7 +19,6 @@ public class Flight
     private String destination;
     private String date;
     private String time;
-    //private boolean isInternational;
 
     // Constructor to initialise the Flight object
     public Flight(String departure, String destination, String date, String time)
@@ -28,7 +27,6 @@ public class Flight
         this.destination = destination;
         this.date = date;
         this.time = time;
-        //this.isInternational = isInternational();
     }
 
     //Getter method of departure
@@ -79,26 +77,16 @@ public class Flight
         this.time = time;
     }
 
-    //Getter method of isInternational
-//    public boolean getIsInternational()
+//    private boolean isInternational()
 //    {
-//        return isInternational;
+//        List<String> domesticAirports = new LinkedList<>();
+//        domesticAirports.add("Auckland (AKL)");
+//        domesticAirports.add("Christchurch (CHC)");
+//        domesticAirports.add("Wellington (WLG)");
+//        domesticAirports.add("Queenstown (ZQN)");
+//
+//        return !(domesticAirports.contains(departure) && domesticAirports.contains(destination));
 //    }
-
-    /* To find out if the flight is international
-     * List of domestic airports
-     * If both departure and destination are in the list of domestic airports,
-     * the flight is not international. Otherwise, it is international.*/
-    private boolean isInternational()
-    {
-        List<String> domesticAirports = new LinkedList<>();
-        domesticAirports.add("Auckland (AKL)");
-        domesticAirports.add("Christchurch (CHC)");
-        domesticAirports.add("Wellington (WLG)");
-        domesticAirports.add("Queenstown (ZQN)");
-
-        return !(domesticAirports.contains(departure) && domesticAirports.contains(destination));
-    }
 
     @Override
     public String toString() {

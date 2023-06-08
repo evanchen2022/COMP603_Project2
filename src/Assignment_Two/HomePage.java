@@ -92,6 +92,8 @@ public class HomePage extends javax.swing.JFrame
         checkTicketFname = new javax.swing.JTextField();
         checkTicketLname = new javax.swing.JTextField();
         checkBtn = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -282,7 +284,6 @@ public class HomePage extends javax.swing.JFrame
         jLabel11.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
         jLabel11.setText("Check existing ticket: ");
 
-        checkTicketFname.setText("First Name");
         checkTicketFname.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -291,7 +292,6 @@ public class HomePage extends javax.swing.JFrame
             }
         });
 
-        checkTicketLname.setText("Last Name");
         checkTicketLname.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -309,32 +309,46 @@ public class HomePage extends javax.swing.JFrame
             }
         });
 
+        jLabel12.setText("First Name");
+
+        jLabel13.setText("Last Name");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(checkTicketFname))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(checkTicketFname))
+                    .addComponent(jLabel12))
                 .addGap(18, 18, 18)
-                .addComponent(checkTicketLname, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(checkBtn)
-                .addGap(42, 42, 42))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel13)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(checkTicketLname, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(checkBtn)
+                        .addGap(42, 42, 42))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel13))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(checkTicketFname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(checkTicketLname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(checkBtn))
-                .addContainerGap(16, Short.MAX_VALUE))
+                    .addComponent(checkBtn)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -513,54 +527,57 @@ public class HomePage extends javax.swing.JFrame
 
             //check if we have this name at hte table:
             Statement stm = dbCheckTicket.conn.createStatement();
-            String sql = "select * from bookedticket where UPPER(fname) ='" + fName + "' and UPPER(lname)= '" + lName + "'";
+            String sql = "select * from bookedticket where UPPER(FIRSTNAME) ='" + fName + "' and UPPER(LASTNAME)= '" + lName + "'";
             ResultSet rs = stm.executeQuery(sql);
 
-            if (rs.next())
+            // If user name and password are true, then go to the ticket details page
+            String ticketDetails = "";
+            while (rs.next())
             {
                 //if user name and password is true then go to Home page
 
-                // If user name and password are true, then go to the ticket details page
-                String ticketDetails = "";
-
                 // Retrieve the values from the result set and concatenate them into the ticketDetails string
                 String ticketNum = rs.getString("TicketID");
-                String firstN = rs.getString("FName");
-                String lastN = rs.getString("LName");
+                String firstN = rs.getString("FIRSTNAME");
+                String lastN = rs.getString("LASTNAME");
                 String fdate = rs.getString("flightdate");
                 String fDeparture = rs.getString("DepartCity");
                 String fArrival = rs.getString("ArrivalCity");
                 String ftime = rs.getString("flightTime");
-                String serviceC = rs.getString("class");
+                String serviceC = rs.getString("flightclass");
                 String fprice = rs.getString("Price");
 
                 // ... Add more columns as needed
                 ticketDetails += "Ticket Number: " + ticketNum + "\n";
-                ticketDetails += "+++++++++++++++++++++++++++++++++++++\n";
+                ticketDetails += "......................................\n";
                 ticketDetails += "Passenger Details:\n";
                 ticketDetails += "First Name: " + firstN + "\n";
                 ticketDetails += "Last Name: " + lastN + "\n";
-                ticketDetails += "+++++++++++++++++++++++++++++++++++++\n";
+                ticketDetails += "\n\n";
                 ticketDetails += "Flight Details:\n";
                 ticketDetails += "Flight Date: " + fdate + "\n";
                 ticketDetails += "Departure City: " + fDeparture + "\n";
                 ticketDetails += "Arrival City: " + fArrival + "\n";
                 ticketDetails += "Flight time: " + ftime + "\n";
-                ticketDetails += "+++++++++++++++++++++++++++++++++++++\n";
+                ticketDetails += "\n\n";
                 ticketDetails += "Price Details:\n";
                 ticketDetails += "Service Class: " + serviceC + "\n";
                 ticketDetails += "Price: " + fprice + "\n";
-                // ... Concatenate more columns as needed
-
+                ticketDetails += "======================================\n";
+            }
+            // If no tickets were found
+            if (ticketDetails.isEmpty())
+            {
+                //if hte username and pw is wrong show error:
+                JOptionPane.showMessageDialog(this, "We can't find your ticket!");
+            }
+            else
+            {
+                //show tickets
                 CheckTicket ticketDetail = new CheckTicket();
                 ticketDetail.jTextArea1.setText(ticketDetails);
                 ticketDetail.show();
 
-            }
-            else
-            {
-                //if hte username and pw is wrong show error:
-                JOptionPane.showMessageDialog(this, "We can't find your ticket!");
             }
 
             dbCheckTicket.conn.close();
@@ -644,6 +661,8 @@ public class HomePage extends javax.swing.JFrame
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

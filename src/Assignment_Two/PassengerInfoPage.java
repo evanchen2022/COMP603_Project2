@@ -34,6 +34,7 @@ public class PassengerInfoPage extends javax.swing.JFrame
         passengerInfoController.createPassengerInfoTable();
         this.flight = flight;
         this.homePageController = new HomePageController(new HomePageModel());
+        this.classService = classService;
     }
 
     public PassengerInfoPage(int totalPassengers, int processedPassengers)
@@ -45,6 +46,7 @@ public class PassengerInfoPage extends javax.swing.JFrame
         this.passengerInfoController = new PassengerInfoPageController(new PassengerInfoPageModel());
         passengerInfoController.createPassengerInfoTable();
         this.homePageController = new HomePageController(new HomePageModel());
+        this.classService = classService;
     }
 
     public void setPassengerNumber(int passengerNumber)
@@ -404,12 +406,19 @@ public class PassengerInfoPage extends javax.swing.JFrame
 
         processedPassengers++;
 
+        firstNameField.setText("");
+        lastNameField.setText("");
+        passportNumberField.setText("");
+        dobField.setText("");
+        addressField.setText("");
+        phoneNumberField.setText("");
+        emailField.setText("");
+        clientNumberField.setText("");
+
         if (processedPassengers < totalPassengers)
         {
-            PassengerInfoPage detailPage = new PassengerInfoPage(totalPassengers, processedPassengers);
-            detailPage.setPassengerNumber(processedPassengers + 1);
-            detailPage.show();
-            this.dispose();
+            this.repaint();
+            this.setPassengerNumber(processedPassengers + 1);
         }
         else if (processedPassengers == totalPassengers)
         {

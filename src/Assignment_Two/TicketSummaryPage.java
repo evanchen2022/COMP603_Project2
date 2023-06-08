@@ -19,6 +19,7 @@ public class TicketSummaryPage extends javax.swing.JFrame
      */
     private int totalPassengers;
     
+    // TicketSummaryPage Constructor
     public TicketSummaryPage(int totalPassengers)
     {
         this.totalPassengers = totalPassengers;
@@ -27,6 +28,7 @@ public class TicketSummaryPage extends javax.swing.JFrame
         displayPassengersInfo();
     }
     
+    // Retrieving passenger information from database and display
     private void displayPassengersInfo()
     {
         DBOperations dbOps = new DBOperations(); // Replace with your actual DbOperations instance
@@ -169,6 +171,8 @@ public class TicketSummaryPage extends javax.swing.JFrame
     /**
      * @param args the command line arguments
      */
+    
+    // For testing only
     public static void main(String args[])
     {
         /* Set the Nimbus look and feel */
