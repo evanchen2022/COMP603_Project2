@@ -5,8 +5,7 @@
         <group>
             <file>file:/Users/evan/Desktop/Comp603_Program%20Design/COMP603_Project2/src/Assignment_Two/LoginPage.java</file>
             <file>file:/Users/evan/Desktop/Comp603_Program%20Design/COMP603_Project2/src/Assignment_Two/DBOperations.java</file>
-            <file>file:/Users/evan/Desktop/Comp603_Program%20Design/COMP603_Project2/test/Assignment_Two/FlightTest.java</file>
-            <file>file:/Users/evan/Desktop/Comp603_Program%20Design/COMP603_Project2/test/Assignment_Two/PassengerInfoPageTest.java</file>
+            <file>file:/Users/evan/Desktop/Comp603_Program%20Design/COMP603_Project2/src/Assignment_Two/UserModel.java</file>
             <file>file:/Users/evan/Desktop/Comp603_Program%20Design/COMP603_Project2/src/Assignment_Two/SignupPage.java</file>
             <file>file:/Users/evan/Desktop/Comp603_Program%20Design/COMP603_Project2/src/Assignment_Two/InfantPassengerInfo.java</file>
             <file>file:/Users/evan/Desktop/Comp603_Program%20Design/COMP603_Project2/src/Assignment_Two/Flight.java</file>
@@ -18,7 +17,6 @@
             <file>file:/Users/evan/Desktop/Comp603_Program%20Design/COMP603_Project2/src/Assignment_Two/TicketDetail.java</file>
             <file>file:/Users/evan/Desktop/Comp603_Program%20Design/COMP603_Project2/src/Assignment_Two/PassengerInfoPage.java</file>
             <file>file:/Users/evan/Desktop/Comp603_Program%20Design/COMP603_Project2/src/Assignment_Two/HomePage.java</file>
-            <file>file:/Users/evan/Desktop/Comp603_Program%20Design/COMP603_Project2/test/Assignment_Two/DBManagerTest.java</file>
             <file>file:/Users/evan/Desktop/Comp603_Program%20Design/COMP603_Project2/src/Assignment_Two/CheckTicket.java</file>
             <file>file:/Users/evan/Desktop/Comp603_Program%20Design/COMP603_Project2/src/Assignment_Two/DBManager.java</file>
             <file>file:/Users/evan/Desktop/Comp603_Program%20Design/COMP603_Project2/src/Assignment_Two/PassengerInfo.java</file>
