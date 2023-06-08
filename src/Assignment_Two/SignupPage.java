@@ -141,34 +141,75 @@ public class SignupPage extends javax.swing.JFrame {
     }//GEN-LAST:event_pwFirstActionPerformed
 
     private void signupBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signupBtnActionPerformed
-         // TODO add your handling code here:
-         String newUserName = UserName.getText();
-         String newPw = pwFirst.getText();
-         String newPw2 = pw.getText();
-         
-                  // validation for user Name
-        if (!newUserName.matches("[a-zA-Z]+") || newUserName == null) {
-            JOptionPane.showMessageDialog(null, "Invalid first name. Only letters are allowed.", "Input Error", JOptionPane.ERROR_MESSAGE);
+//         // TODO add your handling code here:
+//         String newUserName = UserName.getText();
+//         String newPw = pwFirst.getText();
+//         String newPw2 = pw.getText();
+//         
+//                  // validation for user Name
+//        if (!newUserName.matches("[a-zA-Z]+") || newUserName == null) {
+//            JOptionPane.showMessageDialog(null, "Invalid first name. Only letters are allowed.", "Input Error", JOptionPane.ERROR_MESSAGE);
+//            return;
+//        }
+//
+//        // Check if password is match
+//        if (newPw.compareTo(newPw2) != 0) {
+//            JOptionPane.showMessageDialog(this, "Please enter a correct password!");
+//            return; // Exit the method to prevent further execution
+//        }
+//         
+//        if (dbOP.checkExistedTable("Users")) {
+//            dbOP.insertUserInfo(newUserName, newPw2);
+//        }
+//        else
+//        {
+//            dbOP.createUsersTable();
+//            dbOP.insertUserInfo(newUserName, newPw2);
+//        }
+//         
+//         JOptionPane.showMessageDialog(this, "Successfully sign up!");
+//         this.dispose();
+          // TODO add your handling code here:
+        String newUserName = UserName.getText();
+        String newPw = pwFirst.getText();
+        String newPw2 = pw.getText();
+
+        // validation for user Name
+        if (!UserName.getText().matches("[a-zA-Z]+") || UserName.getText() == null) {
+            JOptionPane.showMessageDialog(null, "Invalid name. Only letters are allowed.", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // Check if password is match
-        if (newPw.compareTo(newPw2) != 0) {
+        // Check if password is null or doesn't match
+        if (pwFirst.getText() == null || pw.getText() == null || !pwFirst.getText().equals(pw.getText())) {
             JOptionPane.showMessageDialog(this, "Please enter a correct password!");
             return; // Exit the method to prevent further execution
         }
-         
+
         if (dbOP.checkExistedTable("Users")) {
-            dbOP.insertUserInfo(newUserName, newPw2);
-        }
-        else
-        {
+
+            newUserName = dbOP.checkUser(UserName.getText());
+            if (newUserName == "nope") {
+                JOptionPane.showMessageDialog(this, "User name exist! try other one!");
+            } else {
+                dbOP.insertUserInfo(newUserName, newPw2);
+                JOptionPane.showMessageDialog(this, "Successfully sign up!");
+                this.dispose();
+            }
+        } else {
             dbOP.createUsersTable();
-            dbOP.insertUserInfo(newUserName, newPw2);
+            newUserName = dbOP.checkUser(UserName.getText());
+            if (newUserName == "nope") {
+                JOptionPane.showMessageDialog(this, "User name exist! try other one!");
+            } else {
+                dbOP.insertUserInfo(newUserName, newPw2);
+                JOptionPane.showMessageDialog(this, "Successfully sign up!");
+                this.dispose();
+            }
+//            dbOP.insertUserInfo(newUserName, newPw2);
+//            JOptionPane.showMessageDialog(this, "Successfully sign up!");
+//            this.dispose();
         }
-         
-         JOptionPane.showMessageDialog(this, "Successfully sign up!");
-         this.dispose();
 
     }//GEN-LAST:event_signupBtnActionPerformed
 
