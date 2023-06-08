@@ -10,20 +10,20 @@ package Assignment_Two;
  * Student Name: Zhicong Wang
  * Student ID:   21154481
  */
-public class PassengerInfoController {
+public class PassengerInfoPageController {
 
-    private UserModel userModel;
+    private PassengerInfoPageModel passengerModel;
 
-    public PassengerInfoController(UserModel userModel) {
-        this.userModel = userModel;
+    public PassengerInfoPageController(PassengerInfoPageModel passengerModel) {
+        this.passengerModel = passengerModel;
     }
 
     public void createPassengerInfoTable() {
-        userModel.createPassengerInfoTable();
+        passengerModel.createPassengerInfoTable();
     }
 
     public void insertPassengerInfo(PassengerInfo passenger) {
-        userModel.insertPassengerInfo(passenger);
+        passengerModel.insertPassengerInfo(passenger);
     }
 }
 
