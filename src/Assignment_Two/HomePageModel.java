@@ -24,4 +24,10 @@ public class HomePageModel
     {
         dbOperations.createBookedTicketTable();
     }
+
+    public void writeBookedTicket(String firstName, String lastName, String flightDate, String departCity, String arrivalCity, String flightTime, String classService, String price)
+    {
+        dbOperations.insertBookedTicket(firstName, lastName, flightDate, departCity, arrivalCity, flightTime, classService, price);
+    }
+
 }

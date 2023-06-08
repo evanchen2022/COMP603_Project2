@@ -16,14 +16,16 @@ import javax.swing.JTextField;
 public class PassengerInfoPage extends javax.swing.JFrame
 {
 
+    private Flight flight;
     private int totalPassengers;
     private int processedPassengers;
     private PassengerInfoPageController passengerInfoController;
+    private HomePageController homePageController;
 
     /**
      * Creates new form PassengerInfoPage
      */
-    public PassengerInfoPage(int totalPassengers)
+    public PassengerInfoPage(Flight flight, int totalPassengers)
     {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -31,7 +33,8 @@ public class PassengerInfoPage extends javax.swing.JFrame
         this.processedPassengers = 0;
         this.passengerInfoController = new PassengerInfoPageController(new PassengerInfoPageModel());
         passengerInfoController.createPassengerInfoTable();
-
+        this.flight = flight;
+        this.homePageController = new HomePageController(new HomePageModel());
     }
 
     public PassengerInfoPage(int totalPassengers, int processedPassengers)
@@ -42,6 +45,7 @@ public class PassengerInfoPage extends javax.swing.JFrame
         this.processedPassengers = processedPassengers;
         this.passengerInfoController = new PassengerInfoPageController(new PassengerInfoPageModel());
         passengerInfoController.createPassengerInfoTable();
+        this.homePageController = new HomePageController(new HomePageModel());
     }
 
     public void setPassengerNumber(int passengerNumber)
@@ -280,6 +284,10 @@ public class PassengerInfoPage extends javax.swing.JFrame
         String phoneNumber = phoneNumberField.getText();
         String email = emailField.getText();
         String clientNumber = clientNumberField.getText();
+        String departCT = flight.getDeparture();
+        String arrivalCT = flight.getDestination();
+        String flightDate = flight.getDate();
+        String flightTime = flight.getTime();
 
         // validation for firstName
         if (!firstName.matches("[a-zA-Z]+"))
@@ -362,6 +370,14 @@ public class PassengerInfoPage extends javax.swing.JFrame
 
         passengerInfoController.insertPassengerInfo(passenger);
 
+        try
+        {
+            homePageController.writeBookedTicket(firstName, lastName, flightDate, departCT, arrivalCT, flightTime, classService, price);
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+
         processedPassengers++;
 
         if (processedPassengers < totalPassengers)
@@ -437,7 +453,9 @@ public class PassengerInfoPage extends javax.swing.JFrame
         {
             public void run()
             {
-                new PassengerInfoPage(1).setVisible(true);
+                //testing only
+                Flight flight = new Flight("New York", "San Francisco", "2023-06-06", "13:00");
+                new PassengerInfoPage(flight,1).setVisible(true);
             }
         });
     }

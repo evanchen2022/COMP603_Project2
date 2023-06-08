@@ -7,21 +7,27 @@ package Assignment_Two;
 public class HomePageController
 {
 
-    private HomePageModel bookingModel;
+    private HomePageModel homePageModel;
 
-    public HomePageController(HomePageModel bookingModel)
+    public HomePageController(HomePageModel homePageModel)
     {
-        this.bookingModel = bookingModel;
+        this.homePageModel = homePageModel;
     }
 
     public void createBookedTicketTable()
     {
         try
         {
-            bookingModel.createBookedTicketTable();
+            homePageModel.createBookedTicketTable();
         } catch (Exception e)
         {
             System.out.println(e.getMessage());
         }
     }
+
+    public void writeBookedTicket(String firstName, String lastName, String flightDate, String departCity, String arrivalCity, String flightTime, String classService, String price)
+    {
+        homePageModel.writeBookedTicket(firstName, lastName, flightDate, departCity, arrivalCity, flightTime, classService, price);
+    }
+
 }
