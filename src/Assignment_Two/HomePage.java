@@ -25,6 +25,7 @@ public class HomePage extends javax.swing.JFrame
     private HomePageModel homePageModel;
     private HomePageController homePageController;
     public Flight newFlight;
+    //public String serviceClassForNextPage;
 
     public HomePage()
     {
@@ -32,7 +33,7 @@ public class HomePage extends javax.swing.JFrame
         this.setLocationRelativeTo(null);
         this.homePageModel = new HomePageModel();
         this.homePageController = new HomePageController(homePageModel);
-
+        //this.serviceClassForNextPage = "Testing!!!!!!";
         try
         {
             homePageController.createBookedTicketTable();
@@ -52,6 +53,11 @@ public class HomePage extends javax.swing.JFrame
     {
         this.flightT = flightT;
     }
+    
+//    public void setServiceClassForNextPage(String sc)
+//    {
+//        this.serviceClassForNextPage = sc;
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -400,7 +406,8 @@ public class HomePage extends javax.swing.JFrame
             String flightTime = flightT;
             int passengerNo = (Integer) adult.getValue() + (Integer) child.getValue() + (Integer) infants.getValue();
             String serviceClass = serviceC.getSelectedItem().toString();
-            SeatType classService;
+            //setServiceClassForNextPage(serviceClass);
+            SeatType serviceCC;
 
             // Check if flightTime is empty
             if (flightTime == null)
@@ -422,11 +429,11 @@ public class HomePage extends javax.swing.JFrame
 
             if (serviceClass.equalsIgnoreCase("Business"))
             {
-                classService = SeatType.BUSINESS;
+                serviceCC = SeatType.BUSINESS;
             }
             else if (serviceClass.equalsIgnoreCase("Economy"))
             {
-                classService = SeatType.ECONOMY;
+                serviceCC = SeatType.ECONOMY;
             }
             else
             {
@@ -459,7 +466,7 @@ public class HomePage extends javax.swing.JFrame
                 System.out.println("service class:" + serviceClass);
 
                 dispose();  //close the login page\
-                PassengerInfoPage detailPage = new PassengerInfoPage(newFlight, passengerNo, classService);
+                PassengerInfoPage detailPage = new PassengerInfoPage(newFlight, passengerNo, serviceCC);
                 detailPage.setPassengerNumber(1);
                 detailPage.show();
             }

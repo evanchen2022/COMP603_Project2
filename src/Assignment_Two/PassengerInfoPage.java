@@ -15,7 +15,7 @@ public class PassengerInfoPage extends javax.swing.JFrame
 {
 
     private Flight flight;
-    private SeatType classService;
+    private SeatType serviceTT;
     private int totalPassengers;
     private int processedPassengers;
     private PassengerInfoPageController passengerInfoController;
@@ -34,6 +34,7 @@ public class PassengerInfoPage extends javax.swing.JFrame
         passengerInfoController.createPassengerInfoTable();
         this.flight = flight;
         this.homePageController = new HomePageController(new HomePageModel());
+        this.serviceTT = classService;
     }
 
     public PassengerInfoPage(int totalPassengers, int processedPassengers)
@@ -311,6 +312,7 @@ public class PassengerInfoPage extends javax.swing.JFrame
         String arrivalCT = flight.getDestination();
         String flightDate = flight.getDate();
         String flightTime = flight.getTime();
+       
 
         // validation for firstName
         if (!firstName.matches("[a-zA-Z]+"))
@@ -393,10 +395,13 @@ public class PassengerInfoPage extends javax.swing.JFrame
 
         passengerInfoController.insertPassengerInfo(passenger);
         double price = calculatePriceByAge(dateOfBirth);
+        //testing  for serviceTT.name():
+        System.out.println("看这里！！！！！testing  for classService.name():");
+        System.out.println(serviceTT.name());
 
         try
         {
-            homePageController.writeBookedTicket(firstName, lastName, flightDate, departCT, arrivalCT, flightTime, classService.name(), String.valueOf(price));
+            homePageController.writeBookedTicket(firstName, lastName, flightDate, departCT, arrivalCT, flightTime, serviceTT.name(), String.valueOf(price));
         } catch (Exception e)
         {
             System.out.println(e.getMessage());
