@@ -104,6 +104,7 @@ public abstract class PassengerInfo
     {
         return dateOfBirth;
     }
+    
 
     //Update the dateOfBirth field of an existing PassengerInfo object
     public void setDateOfBirth(String dateOfBirth)
