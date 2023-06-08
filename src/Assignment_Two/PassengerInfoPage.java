@@ -5,18 +5,17 @@
 package Assignment_Two;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
-import javax.swing.InputVerifier;
-import javax.swing.JComponent;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 
 public class PassengerInfoPage extends javax.swing.JFrame
 {
 
     private Flight flight;
+    private SeatType classService;
     private int totalPassengers;
     private int processedPassengers;
     private PassengerInfoPageController passengerInfoController;
@@ -25,7 +24,7 @@ public class PassengerInfoPage extends javax.swing.JFrame
     /**
      * Creates new form PassengerInfoPage
      */
-    public PassengerInfoPage(Flight flight, int totalPassengers)
+    public PassengerInfoPage(Flight flight, int totalPassengers, SeatType classService)
     {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -51,6 +50,30 @@ public class PassengerInfoPage extends javax.swing.JFrame
     public void setPassengerNumber(int passengerNumber)
     {
         jLabel1.setText("Passenger " + passengerNumber + " Information");
+    }
+
+    public double calculatePriceByAge(LocalDate birthdate)
+    {
+        double price;
+
+        // Calculate age based on the dateOfBirth
+        int age = Period.between(birthdate, LocalDate.now()).getYears();
+
+        // Pricing policy
+        if (age < 2)
+        { // infant
+            price = 150;
+        }
+        else if (age < 16)
+        { // child
+            price = 300;
+        }
+        else
+        { // adult
+            price = 1000;
+        }
+
+        return price;
     }
 
     /**
@@ -369,10 +392,11 @@ public class PassengerInfoPage extends javax.swing.JFrame
         System.out.println("New passenger created: " + passenger.getFirstName() + " " + passenger.getLastName() + ", Type: " + passenger.getClass().getSimpleName());
 
         passengerInfoController.insertPassengerInfo(passenger);
+        double price = calculatePriceByAge(dateOfBirth);
 
         try
         {
-            homePageController.writeBookedTicket(firstName, lastName, flightDate, departCT, arrivalCT, flightTime, classService, price);
+            homePageController.writeBookedTicket(firstName, lastName, flightDate, departCT, arrivalCT, flightTime, classService.name(), String.valueOf(price));
         } catch (Exception e)
         {
             System.out.println(e.getMessage());
@@ -455,7 +479,8 @@ public class PassengerInfoPage extends javax.swing.JFrame
             {
                 //testing only
                 Flight flight = new Flight("New York", "San Francisco", "2023-06-06", "13:00");
-                new PassengerInfoPage(flight,1).setVisible(true);
+                SeatType classService = SeatType.ECONOMY;
+                new PassengerInfoPage(flight, 1, classService).setVisible(true);
             }
         });
     }
