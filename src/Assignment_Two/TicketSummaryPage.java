@@ -119,8 +119,6 @@ public class TicketSummaryPage extends javax.swing.JFrame
         ticketInformationLabel.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         ticketInformationLabel.setText("Ticket Information");
 
-        jButton1.setBackground(new java.awt.Color(153, 153, 153));
-        jButton1.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jButton1.setText("Confirm");
         jButton1.addActionListener(new java.awt.event.ActionListener()
         {

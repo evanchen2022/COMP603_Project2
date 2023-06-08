@@ -4,11 +4,31 @@
  */
 package Assignment_Two;
 
+import java.sql.SQLException;
+
 /**
  *
  * @author evan
  */
-public class UserController 
+public class UserController
 {
-    
+
+    private UserModel userModel;
+
+    public UserController(UserModel userModel)
+    {
+        this.userModel = userModel;
+    }
+
+    public boolean verifyUser(String username, String password)
+    {
+        try
+        {
+            return userModel.checkUser(username, password);
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
