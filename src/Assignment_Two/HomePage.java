@@ -15,40 +15,43 @@ import javax.swing.JOptionPane;
  *
  * @author evan
  */
-public class HomePage extends javax.swing.JFrame {
+public class HomePage extends javax.swing.JFrame
+{
 
     /**
      * Creates new form HomePage
      */
-    
     private String flightT = null;
     private HomePageModel homePageModel;
     private HomePageController homePageController;
     public Flight newFlight;
-    
-    public HomePage() {
+
+    public HomePage()
+    {
         initComponents();
         this.setLocationRelativeTo(null);
         this.homePageModel = new HomePageModel();
         this.homePageController = new HomePageController(homePageModel);
-        
-        try {
+
+        try
+        {
             homePageController.createBookedTicketTable();
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             System.out.println(e.getMessage());
         }
 
     }
 
-    public String getFlightT() {
+    public String getFlightT()
+    {
         return flightT;
     }
 
-    public void setFlightT(String flightT) {
+    public void setFlightT(String flightT)
+    {
         this.flightT = flightT;
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -384,82 +387,95 @@ public class HomePage extends javax.swing.JFrame {
         //step1: check if there is flight by (destination, date and time match)  => Yes
         //step2: add customer into this flight. 
         //step3: otherwise, create a new flight, then go next page to fill customer details.
-        
-        try {
+
+        try
+        {
             //built a connecting with database, this one need to change in the future:
             DBManager dbFlight = new DBManager();
-            
-               
-            
-            
+
             //get the user name and password from database:
             String departCT = departCity.getSelectedItem().toString();
             String arrivalCT = arrivalCity.getSelectedItem().toString();
             String flightDate = dateChooser.getText();
             String flightTime = flightT;
-            int passengerNo = (Integer)adult.getValue() + (Integer)child.getValue() + (Integer)infants.getValue();
+            int passengerNo = (Integer) adult.getValue() + (Integer) child.getValue() + (Integer) infants.getValue();
             String serviceClass = serviceC.getSelectedItem().toString();
-            
-            
+            SeatType classService;
+
             // Check if flightTime is empty
-            if (flightTime == null) {
+            if (flightTime == null)
+            {
                 JOptionPane.showMessageDialog(this, "Please select a flight time.");
                 return; // Exit the method to prevent further execution
             }
-            
-            
+
             //check the date time first, must be after today!!!
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate enteredDate = LocalDate.parse(flightDate, formatter);
             LocalDate currentDate = LocalDate.now();
-            
-            if (enteredDate.isBefore(currentDate)) {
+
+            if (enteredDate.isBefore(currentDate))
+            {
                 JOptionPane.showMessageDialog(this, "Please select date time after today.");
                 return; // Exit the method to prevent further execution
-            } 
-            
-            
+            }
+
+            if (serviceClass.equalsIgnoreCase("Business"))
+            {
+                classService = SeatType.BUSINESS;
+            }
+            else if (serviceClass.equalsIgnoreCase("Economy"))
+            {
+                classService = SeatType.ECONOMY;
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "Invalid choice of service class!");
+                return; // Exit the method to prevent further execution
+            }
+
             //after the input, create a new flight for next page!!!!
             newFlight = new Flight(departCT, arrivalCT, flightDate, flightTime);
-            
+
             System.out.println("This line for testing: check if the newFLight object is correctly create.");
             System.out.println(newFlight.toString());
 
             //check if we have this name at hte table:
             Statement stm = dbFlight.conn.createStatement();
-            String sql = "select * from flight where departcity='"+departCT+"' and arrivalcity= '"+arrivalCT+"'";           
+            String sql = "select * from flight where departcity='" + departCT + "' and arrivalcity= '" + arrivalCT + "'";
             ResultSet rs = stm.executeQuery(sql);
-            
-            if(rs.next()){
+
+            if (rs.next())
+            {
                 //if user name and password is true then go to Home page
                 System.out.println("Found this flight at database, now creating this order........");
-                Flight newFlight = new Flight(departCT, arrivalCT, flightDate,flightTime);
+                Flight newFlight = new Flight(departCT, arrivalCT, flightDate, flightTime);
                 System.out.println("User choose this flight line:");
-                System.out.println("depart city:"+departCT);
-                System.out.println("arrival city:"+arrivalCT);
-                System.out.println("date:"+flightDate);   
-                System.out.println("time:"+flightTime);   
-                System.out.println("number of passenger:"+passengerNo);
-                System.out.println("service class:"+serviceClass);
-                
-                
+                System.out.println("depart city:" + departCT);
+                System.out.println("arrival city:" + arrivalCT);
+                System.out.println("date:" + flightDate);
+                System.out.println("time:" + flightTime);
+                System.out.println("number of passenger:" + passengerNo);
+                System.out.println("service class:" + serviceClass);
+
                 dispose();  //close the login page\
-                PassengerInfoPage detailPage = new PassengerInfoPage(newFlight, passengerNo);
+                PassengerInfoPage detailPage = new PassengerInfoPage(newFlight, passengerNo, classService);
                 detailPage.setPassengerNumber(1);
                 detailPage.show();
-            } else {
+            }
+            else
+            {
                 //if hte username and pw is wrong show error:
                 // Check if flightTime is empty
 
                 JOptionPane.showMessageDialog(this, "We don't flight to this city recently, please choose other destination city!");
-                
+
             }
-            
+
             dbFlight.conn.close();
-            
-            
-            
-        } catch (Exception e) {
+
+        } catch (Exception e)
+        {
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_btnConfirmActionPerformed
@@ -475,86 +491,85 @@ public class HomePage extends javax.swing.JFrame {
 
     private void checkBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBtnActionPerformed
         // TODO add your handling code here:
-        
-        try {
+
+        try
+        {
             //built a connecting with database, this one need to change in the future:
-            DBManager dbCheckTicket = new DBManager();            
-            
+            DBManager dbCheckTicket = new DBManager();
+
             //get the user name and password from database:           
             String fName = checkTicketFname.getText().toUpperCase();
             String lName = checkTicketLname.getText().toUpperCase();
-            
+
             System.out.println(fName);
             System.out.println(lName);
-            
+
             // Check if flightTime is empty
-            if (fName == null || lName == null) {
+            if (fName == null || lName == null)
+            {
                 JOptionPane.showMessageDialog(this, "Please input your first name and last name to check.");
                 return; // Exit the method to prevent further execution
             }
-            
-            
-            
 
             //check if we have this name at hte table:
             Statement stm = dbCheckTicket.conn.createStatement();
-            String sql = "select * from bookedticket where UPPER(fname) ='"+fName+"' and UPPER(lname)= '"+lName+"'";           
+            String sql = "select * from bookedticket where UPPER(fname) ='" + fName + "' and UPPER(lname)= '" + lName + "'";
             ResultSet rs = stm.executeQuery(sql);
-            
-            if(rs.next()){
+
+            if (rs.next())
+            {
                 //if user name and password is true then go to Home page
-                
+
                 // If user name and password are true, then go to the ticket details page
                 String ticketDetails = "";
 
                 // Retrieve the values from the result set and concatenate them into the ticketDetails string
                 String ticketNum = rs.getString("TicketID");
                 String firstN = rs.getString("FName");
-                String lastN = rs.getString("LName");  
+                String lastN = rs.getString("LName");
                 String fdate = rs.getString("flightdate");
                 String fDeparture = rs.getString("DepartCity");
                 String fArrival = rs.getString("ArrivalCity");
                 String ftime = rs.getString("flightTime");
                 String serviceC = rs.getString("class");
                 String fprice = rs.getString("Price");
-                
-                // ... Add more columns as needed
 
+                // ... Add more columns as needed
                 ticketDetails += "Ticket Number: " + ticketNum + "\n";
-                ticketDetails += "+++++++++++++++++++++++++++++++++++++\n"; 
+                ticketDetails += "+++++++++++++++++++++++++++++++++++++\n";
                 ticketDetails += "Passenger Details:\n";
                 ticketDetails += "First Name: " + firstN + "\n";
-                ticketDetails += "Last Name: " + lastN + "\n"; 
-                ticketDetails += "+++++++++++++++++++++++++++++++++++++\n"; 
+                ticketDetails += "Last Name: " + lastN + "\n";
+                ticketDetails += "+++++++++++++++++++++++++++++++++++++\n";
                 ticketDetails += "Flight Details:\n";
                 ticketDetails += "Flight Date: " + fdate + "\n";
                 ticketDetails += "Departure City: " + fDeparture + "\n";
                 ticketDetails += "Arrival City: " + fArrival + "\n";
                 ticketDetails += "Flight time: " + ftime + "\n";
-                ticketDetails += "+++++++++++++++++++++++++++++++++++++\n"; 
+                ticketDetails += "+++++++++++++++++++++++++++++++++++++\n";
                 ticketDetails += "Price Details:\n";
                 ticketDetails += "Service Class: " + serviceC + "\n";
                 ticketDetails += "Price: " + fprice + "\n";
                 // ... Concatenate more columns as needed
-                
-                
+
                 CheckTicket ticketDetail = new CheckTicket();
-                ticketDetail.jTextArea1.setText(ticketDetails);               
+                ticketDetail.jTextArea1.setText(ticketDetails);
                 ticketDetail.show();
-                
-            } else {
-                //if hte username and pw is wrong show error:
-                JOptionPane.showMessageDialog(this, "We can't find your ticket!");              
+
             }
-            
+            else
+            {
+                //if hte username and pw is wrong show error:
+                JOptionPane.showMessageDialog(this, "We can't find your ticket!");
+            }
+
             dbCheckTicket.conn.close();
-            
-            
-            
-        } catch (Exception e) {
+
+        } catch (Exception e)
+        {
             System.out.println(e.getMessage());
         }
-        
+
     }//GEN-LAST:event_checkBtnActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnBackActionPerformed
@@ -568,33 +583,43 @@ public class HomePage extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[])
+    {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex)
+        {
             java.util.logging.Logger.getLogger(HomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
+        } catch (InstantiationException ex)
+        {
             java.util.logging.Logger.getLogger(HomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+        } catch (IllegalAccessException ex)
+        {
             java.util.logging.Logger.getLogger(HomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
             java.util.logging.Logger.getLogger(HomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+        java.awt.EventQueue.invokeLater(new Runnable()
+        {
+            public void run()
+            {
                 new HomePage().setVisible(true);
             }
         });
