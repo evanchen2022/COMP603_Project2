@@ -1,8 +1,15 @@
 ----------------------------------------------------------------
+<<<<<<< Updated upstream
 Wed Jun 07 22:42:24 NZST 2023:
 Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0188-9573-57a5-000012954e88 
 on database directory C:\Users\T470s\Documents\GitHub\COMP603_Project2\BookingSystem with class loader sun.misc.Launcher$AppClassLoader@5c647e05 
 Loaded from file:/C:/Users/T470s/Documents/GitHub/COMP603_Project2/lib/derby.jar
+=======
+Thu Jun 08 13:00:38 NZST 2023:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0188-9885-161a-000006b55fb8 
+on database directory /Users/evan/Desktop/Comp603_Program Design/COMP603_Project2/BookingSystem with class loader sun.misc.Launcher$AppClassLoader@14ae5a5 
+Loaded from file:/Users/evan/Desktop/Comp603_Program%20Design/COMP603_Project2/lib/derby.jar
+>>>>>>> Stashed changes
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_361-b09
 user.dir=C:\Users\T470s\Documents\GitHub\COMP603_Project2

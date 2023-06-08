@@ -21,14 +21,17 @@ public class SignupPage extends javax.swing.JFrame {
      * Creates new form SignupPage
      */
     private DBOperations dbOP;
+  
     
     public SignupPage() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.dbOP = new DBOperations();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-    }
 
+    }
+    
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -146,29 +149,50 @@ public class SignupPage extends javax.swing.JFrame {
          String newPw = pwFirst.getText();
          String newPw2 = pw.getText();
          
-                  // validation for user Name
-        if (!newUserName.matches("[a-zA-Z]+") || newUserName == null) {
-            JOptionPane.showMessageDialog(null, "Invalid first name. Only letters are allowed.", "Input Error", JOptionPane.ERROR_MESSAGE);
+        // validation for user Name
+        if (!UserName.getText().matches("[a-zA-Z]+") || UserName.getText() == null) {
+            JOptionPane.showMessageDialog(null, "Invalid name. Only letters are allowed.", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
-        }
+        } 
+       
 
-        // Check if password is match
-        if (newPw.compareTo(newPw2) != 0) {
+        // Check if password is null or doesn't match
+        if (pwFirst.getText() == null || pw.getText() == null || !pwFirst.getText().equals(pw.getText())) {
             JOptionPane.showMessageDialog(this, "Please enter a correct password!");
             return; // Exit the method to prevent further execution
         }
-         
+        
+        
+        
         if (dbOP.checkExistedTable("Users")) {
-            dbOP.insertUserInfo(newUserName, newPw2);
+            
+            newUserName = dbOP.checkUser(UserName.getText());
+            if (newUserName == "nope") {
+                JOptionPane.showMessageDialog(this, "User name exist! try other one!");
+            } else {
+                dbOP.insertUserInfo(newUserName, newPw2);
+                JOptionPane.showMessageDialog(this, "Successfully sign up!");
+                this.dispose();
+            }
         }
         else
         {
             dbOP.createUsersTable();
-            dbOP.insertUserInfo(newUserName, newPw2);
+            newUserName = dbOP.checkUser(UserName.getText());
+            if (newUserName == "nope") {
+                JOptionPane.showMessageDialog(this, "User name exist! try other one!");
+            } else {
+                dbOP.insertUserInfo(newUserName, newPw2);
+                JOptionPane.showMessageDialog(this, "Successfully sign up!");
+                this.dispose();
+            }
+//            dbOP.insertUserInfo(newUserName, newPw2);
+//            JOptionPane.showMessageDialog(this, "Successfully sign up!");
+//            this.dispose();
         }
          
-         JOptionPane.showMessageDialog(this, "Successfully sign up!");
-         this.dispose();
+         
+         
 
     }//GEN-LAST:event_signupBtnActionPerformed
 
@@ -206,23 +230,26 @@ public class SignupPage extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
+        
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new SignupPage().setVisible(true);
+                
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField UserName;
+    public javax.swing.JTextField UserName;
     private javax.swing.JButton cancelBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JPasswordField pw;
-    private javax.swing.JPasswordField pwFirst;
-    private javax.swing.JButton signupBtn;
+    public javax.swing.JPasswordField pw;
+    public javax.swing.JPasswordField pwFirst;
+    public javax.swing.JButton signupBtn;
     // End of variables declaration//GEN-END:variables
 }

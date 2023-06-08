@@ -26,8 +26,15 @@ public class LoginPage extends javax.swing.JFrame
     public LoginPage()
     {
         initComponents();
+<<<<<<< Updated upstream
         UserModel userModel = new UserModel();
         this.userController = new UserController(userModel);
+=======
+        this.dbOps2 = new DBOperations();
+        //alway shows the login page:
+        this.setLocationRelativeTo(null);
+        
+>>>>>>> Stashed changes
     }
 
     /**
@@ -179,7 +186,15 @@ public class LoginPage extends javax.swing.JFrame
         // TODO add your handling code here:
         SignupPage newPage = new SignupPage();
         newPage.show();
+<<<<<<< Updated upstream
 
+=======
+        
+        //test for new code based sign up page:
+        //SignUp newSignUp = new SignUp();
+        //newSignUp.show();
+        
+>>>>>>> Stashed changes
     }//GEN-LAST:event_btnSignupActionPerformed
 
     /**

@@ -219,7 +219,7 @@ public class DBOperations
 
         try
         {
-            checkExistedTable("Users");
+            //checkExistedTable("Users");
             System.out.println("Creating PassengerInfo table in the database...");
             String sqlCreateTable = "CREATE TABLE Users ("
                     + "userID INTEGER PRIMARY KEY, "
@@ -247,7 +247,43 @@ public class DBOperations
             }
         }
     }
+<<<<<<< Updated upstream
 
+=======
+    
+    public String checkUser(String inputUser)
+    {
+        String checkedName = null;
+        Connection connection = dbManager.conn;
+        Statement statement = null;
+
+        try
+        {
+            //checkExisted Users in the table;
+            System.out.println("Checking existing User in USers table in the database...");
+            
+            String sqlCheckFromTable = "Select * from Users where username = '"+inputUser+"'";
+            statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(sqlCheckFromTable);
+
+            System.out.println("Checking the Users table........");
+            
+            if (rs.next())
+            {
+                checkedName = "nope";
+                System.out.println("There is exiting user in here!");
+            } else {
+                checkedName = inputUser;
+            }
+        } catch (SQLException ex)
+        {
+            System.out.println(ex.getMessage());
+        } 
+        
+        return checkedName;
+    }
+    
+>>>>>>> Stashed changes
     // Inserts new user information into "Users" table
     public void insertUserInfo(String UserName, String pw)
     {
