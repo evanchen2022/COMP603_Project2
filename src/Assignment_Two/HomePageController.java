@@ -4,21 +4,21 @@
  */
 package Assignment_Two;
 
-public class HomeController
+public class HomePageController
 {
 
-    private UserModel userModel;
+    private HomePageModel bookingModel;
 
-    public HomeController(UserModel userModel)
+    public HomePageController(HomePageModel bookingModel)
     {
-        this.userModel = userModel;
+        this.bookingModel = bookingModel;
     }
 
     public void createBookedTicketTable()
     {
         try
         {
-            userModel.createBookedTicketTable();
+            bookingModel.createBookedTicketTable();
         } catch (Exception e)
         {
             System.out.println(e.getMessage());
