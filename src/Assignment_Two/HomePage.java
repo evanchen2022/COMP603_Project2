@@ -437,14 +437,14 @@ public class HomePage extends javax.swing.JFrame {
                 System.out.println("User choose this flight line:");
                 System.out.println("depart city:"+departCT);
                 System.out.println("arrival city:"+arrivalCT);
-                System.out.println("date:"+flightDate);   //有问题
-                System.out.println("time:"+flightTime);   //有问题
+                System.out.println("date:"+flightDate);   
+                System.out.println("time:"+flightTime);   
                 System.out.println("number of passenger:"+passengerNo);
                 System.out.println("service class:"+serviceClass);
                 
                 
                 dispose();  //close the login page\
-                PassengerInfoPage detailPage = new PassengerInfoPage(passengerNo);
+                PassengerInfoPage detailPage = new PassengerInfoPage(newFlight, passengerNo);
                 detailPage.setPassengerNumber(1);
                 detailPage.show();
             } else {
