@@ -172,9 +172,9 @@ public abstract class PassengerInfo
   
     
     //print out discount method:
-    public void checkDiscount()
+    public String checkDiscount()
     {
-        
+      return "";   
     }
 
 }

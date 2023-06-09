@@ -28,9 +28,9 @@ public class InfantPassengerInfo extends PassengerInfo
     
     //Display the discount message
     @Override
-    public void checkDiscount()
+    public String checkDiscount()
     {
-        System.out.println("50% off for infant's ticket. Enjoy the discount!!");
+        return "50% off for infant's ticket. Enjoy the discount!!";
     }
 
     @Override

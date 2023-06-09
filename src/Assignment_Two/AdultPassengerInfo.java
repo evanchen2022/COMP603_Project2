@@ -35,9 +35,9 @@ public class AdultPassengerInfo extends PassengerInfo
     
     //Display the discount message
     @Override
-    public void checkDiscount()
+    public String checkDiscount()
     {
-        System.out.println("No discount for Adult.");
+        return "No discount for Adult.";
     }
 
     
