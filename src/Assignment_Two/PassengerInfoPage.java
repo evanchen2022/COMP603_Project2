@@ -4,8 +4,10 @@
  */
 package Assignment_Two;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+/**
+ *
+ * P08_16932797_21154481
+ */
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
@@ -26,6 +28,8 @@ public class PassengerInfoPage extends javax.swing.JFrame
     /**
      * Creates new form PassengerInfoPage
      */
+    
+    // Constructor of PassengerInfoPage, retrieve information from homePage
     public PassengerInfoPage(Flight flight, int totalPassengers, SeatType classService)
     {
         initComponents();
@@ -39,6 +43,7 @@ public class PassengerInfoPage extends javax.swing.JFrame
         this.classService = classService;
     }
 
+    // Constructor of PassengerInfoPage
     public PassengerInfoPage(int totalPassengers, int processedPassengers)
     {
         initComponents();
@@ -51,16 +56,17 @@ public class PassengerInfoPage extends javax.swing.JFrame
         this.classService = classService;
     }
 
+    // Display the passenger number in the view
     public void setPassengerNumber(int passengerNumber)
     {
         jLabel1.setText("Passenger " + passengerNumber + " Information");
     }
 
+    // Calculate price base on service class and age
     public double calculatePriceByAgeAndClass(LocalDate birthdate, String serviceClass)
     {
         double basePrice;
 
-        // Pricing based on service class
         if ("BUSINESS".equals(serviceClass))
         {
             basePrice = 2000;
@@ -74,23 +80,18 @@ public class PassengerInfoPage extends javax.swing.JFrame
             throw new IllegalArgumentException("Invalid service class: " + serviceClass);
         }
 
-        // Calculate age based on the dateOfBirth
         int age = Period.between(birthdate, LocalDate.now()).getYears();
 
-        // Discount policy based on age
         if (age < 2)
         {
-            // Infant: 50% off
             return basePrice * 0.5;
         }
         else if (age < 12)
         {
-            // Child: No discount
             return basePrice;
         }
         else
         {
-            // Adult: No discount
             return basePrice;
         }
     }
@@ -372,7 +373,7 @@ public class PassengerInfoPage extends javax.swing.JFrame
             }
             long years = ChronoUnit.YEARS.between(dateOfBirth, now);
             if (years < 0 || years > 150)
-            { // adjust the range as needed
+            { 
                 JOptionPane.showMessageDialog(null, "Invalid date of birth. The age must be between 0 and 150.", "Input Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }

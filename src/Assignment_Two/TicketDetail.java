@@ -6,7 +6,7 @@ package Assignment_Two;
 
 /**
  *
- * @author evan
+ * P08_16932797_21154481
  */
 public class TicketDetail 
 {
@@ -16,7 +16,7 @@ public class TicketDetail
     private SeatType seatType;
     private double price;
 
-    //Constructor to initialise a new booking                     //, Seat[] seats
+    //Constructor to initialise a new booking
     public TicketDetail(Flight flight, PassengerInfo passengerInfos, SeatType seatType, Double price)
     {
         this.flight = flight;
@@ -48,19 +48,6 @@ public class TicketDetail
     {
         this.passengerInfos = passengerInfos;
     }
-
-    //Getter method to return the array of Seat ojbects
-//    public Seat[] getSeats()
-//    {
-//        return seats;
-//    }
-//    
-//    //Setter method to update the array of Seat objects
-//    public void setSeats(Seat[] seats)
-//    {
-//        this.seats = seats;
-//    }
-
     /*Getter method to return the SeatType
      *Economy or Business class*/
     public SeatType getSeatType()

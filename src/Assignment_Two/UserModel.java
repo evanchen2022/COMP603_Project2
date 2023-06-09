@@ -4,11 +4,12 @@
  */
 package Assignment_Two;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+
+/**
+ *
+ * P08_16932797_21154481
+ */
 
 public class UserModel
 {
@@ -16,12 +17,14 @@ public class UserModel
     public DBManager userPart;
     public DBOperations userOper;
 
+    // Constructor of UserModel
     public UserModel()
     {
         userPart = new DBManager();
         userOper = new DBOperations();
     }
 
+    // Call checkUser method of the userOper object to check if the provided username and password exist in the database
     public boolean checkUser(String username, String password) throws SQLException
     {
         return userOper.checkUser(username, password);
