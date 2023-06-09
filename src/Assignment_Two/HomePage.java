@@ -25,7 +25,7 @@ public class HomePage extends javax.swing.JFrame
     private HomePageModel homePageModel;
     private HomePageController homePageController;
     public Flight newFlight;
-    //public String serviceClassForNextPage;
+    
 
     public HomePage()
     {
@@ -33,7 +33,7 @@ public class HomePage extends javax.swing.JFrame
         this.setLocationRelativeTo(null);
         this.homePageModel = new HomePageModel();
         this.homePageController = new HomePageController(homePageModel);
-        //this.serviceClassForNextPage = "Testing!!!!!!";
+        
         try
         {
             homePageController.createBookedTicketTable();

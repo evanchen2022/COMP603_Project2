@@ -396,8 +396,8 @@ public class PassengerInfoPage extends javax.swing.JFrame
         passengerInfoController.insertPassengerInfo(passenger);
         double price = calculatePriceByAge(dateOfBirth);
         //testing  for serviceTT.name():
-        System.out.println("看这里！！！！！testing  for classService.name():");
-        System.out.println(serviceTT.name());
+        //System.out.println("！testing  for classService.name():");
+        //System.out.println(serviceTT.name());
 
         try
         {
@@ -411,10 +411,10 @@ public class PassengerInfoPage extends javax.swing.JFrame
 
         if (processedPassengers < totalPassengers)
         {
-            PassengerInfoPage detailPage = new PassengerInfoPage(totalPassengers, processedPassengers);
-            detailPage.setPassengerNumber(processedPassengers + 1);
-            detailPage.show();
-            this.dispose();
+            //PassengerInfoPage detailPage = new PassengerInfoPage(totalPassengers, processedPassengers);
+            this.repaint();
+            this.setPassengerNumber(processedPassengers + 1);            
+            //this.dispose();
         }
         else if (processedPassengers == totalPassengers)
         {
