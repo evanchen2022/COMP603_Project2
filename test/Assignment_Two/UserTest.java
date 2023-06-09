@@ -49,6 +49,21 @@ public class UserTest {
         
     }
 
+    /**
+     * Test of getPassword method, of class User.
+     */
+    @Test
+    public void testGetPassword() {
+        System.out.println("getPassword");
+        User instance = new User("evan","123456");;
+        String expResult = "123456";
+        String result = instance.getPassword();
+        assertEquals(expResult, result);
+        
+    }
+    
+    
+
     
     
     

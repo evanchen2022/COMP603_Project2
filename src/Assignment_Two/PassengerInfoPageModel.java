@@ -27,4 +27,5 @@ public class PassengerInfoPageModel
     {
         dbOperations.insertPassengerInfo(passenger);
     }
+    
 }

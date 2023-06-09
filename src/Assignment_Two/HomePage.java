@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import javax.swing.JOptionPane;
 
 /**
@@ -428,13 +429,21 @@ public class HomePage extends javax.swing.JFrame
 
             //check the date time first, must be after today!!!
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            LocalDate enteredDate = LocalDate.parse(flightDate, formatter);
-            LocalDate currentDate = LocalDate.now();
-
-            if (enteredDate.isBefore(currentDate))
+            try
             {
-                JOptionPane.showMessageDialog(this, "Please select date time after today.");
-                return; // Exit the method to prevent further execution
+                LocalDate enteredDate = LocalDate.parse(flightDate, formatter);
+                LocalDate currentDate = LocalDate.now();
+
+                if (enteredDate.isBefore(currentDate))
+                {
+                    JOptionPane.showMessageDialog(this, "Please select date time after today.");
+                    return; // Exit the method to prevent further execution
+                }
+            } catch (DateTimeParseException e)
+            {
+                JOptionPane.showMessageDialog(this, "Invalid date format! Please enter a date in the format yyyy-MM-dd.");
+                return;
+
             }
 
             if (serviceClass.equalsIgnoreCase("Business"))

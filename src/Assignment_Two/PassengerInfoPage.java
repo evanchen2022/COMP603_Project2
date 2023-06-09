@@ -4,6 +4,8 @@
  */
 package Assignment_Two;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
@@ -55,44 +57,43 @@ public class PassengerInfoPage extends javax.swing.JFrame
     }
 
     public double calculatePriceByAgeAndClass(LocalDate birthdate, String serviceClass)
-{
-    double basePrice;
-
-    // Pricing based on service class
-    if ("BUSINESS".equals(serviceClass)) 
     {
-        basePrice = 2000;
-    } 
-    else if ("ECONOMY".equals(serviceClass)) 
-    {
-        basePrice = 1000;
-    }
-    else 
-    {
-        throw new IllegalArgumentException("Invalid service class: " + serviceClass);
-    }
+        double basePrice;
 
-    // Calculate age based on the dateOfBirth
-    int age = Period.between(birthdate, LocalDate.now()).getYears();
+        // Pricing based on service class
+        if ("BUSINESS".equals(serviceClass))
+        {
+            basePrice = 2000;
+        }
+        else if ("ECONOMY".equals(serviceClass))
+        {
+            basePrice = 1000;
+        }
+        else
+        {
+            throw new IllegalArgumentException("Invalid service class: " + serviceClass);
+        }
 
-    // Discount policy based on age
-    if (age < 2) 
-    { 
-        // Infant: 50% off
-        return basePrice * 0.5;
-    } 
-    else if (age < 12) 
-    { 
-        // Child: No discount
-        return basePrice;
-    } 
-    else 
-    { 
-        // Adult: No discount
-        return basePrice;
+        // Calculate age based on the dateOfBirth
+        int age = Period.between(birthdate, LocalDate.now()).getYears();
+
+        // Discount policy based on age
+        if (age < 2)
+        {
+            // Infant: 50% off
+            return basePrice * 0.5;
+        }
+        else if (age < 12)
+        {
+            // Child: No discount
+            return basePrice;
+        }
+        else
+        {
+            // Adult: No discount
+            return basePrice;
+        }
     }
-} 
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -114,7 +115,6 @@ public class PassengerInfoPage extends javax.swing.JFrame
         jLabel4 = new javax.swing.JLabel();
         passportNumberField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        dobField = new javax.swing.JFormattedTextField();
         jLabel6 = new javax.swing.JLabel();
         addressField = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -127,6 +127,7 @@ public class PassengerInfoPage extends javax.swing.JFrame
         firstNameField = new javax.swing.JTextField();
         confirmButton = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        dobField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -187,15 +188,6 @@ public class PassengerInfoPage extends javax.swing.JFrame
 
         jLabel5.setText("Date of Birth(yyyy-mm-dd)*");
 
-        dobField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
-        dobField.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                dobFieldActionPerformed(evt);
-            }
-        });
-
         jLabel6.setText("Address");
 
         addressField.addActionListener(new java.awt.event.ActionListener()
@@ -243,7 +235,6 @@ public class PassengerInfoPage extends javax.swing.JFrame
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
-                            .addComponent(dobField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(passportNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(143, 143, 143)
@@ -257,28 +248,30 @@ public class PassengerInfoPage extends javax.swing.JFrame
                         .addComponent(jLabel3)
                         .addGap(195, 195, 195))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(phoneNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8)
-                                    .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel7)
-                                .addComponent(addressField, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(firstNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(151, 151, 151)
-                                    .addComponent(lastNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(phoneNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel8)
+                                        .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(clientNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel9))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(confirmButton, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jLabel7)
+                                    .addComponent(addressField, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(firstNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(151, 151, 151)
+                                        .addComponent(lastNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(clientNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel9))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(confirmButton, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(dobField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -304,9 +297,9 @@ public class PassengerInfoPage extends javax.swing.JFrame
                         .addComponent(passportNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(dobField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(12, 12, 12)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(addressField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -467,11 +460,6 @@ public class PassengerInfoPage extends javax.swing.JFrame
         // TODO add your handling code here:
     }//GEN-LAST:event_addressFieldActionPerformed
 
-    private void dobFieldActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_dobFieldActionPerformed
-    {//GEN-HEADEREND:event_dobFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_dobFieldActionPerformed
-
     private void passportNumberFieldActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_passportNumberFieldActionPerformed
     {//GEN-HEADEREND:event_passportNumberFieldActionPerformed
         // TODO add your handling code here:
@@ -537,7 +525,7 @@ public class PassengerInfoPage extends javax.swing.JFrame
     private javax.swing.JTextField addressField;
     private javax.swing.JTextField clientNumberField;
     private javax.swing.JButton confirmButton;
-    private javax.swing.JFormattedTextField dobField;
+    private javax.swing.JTextField dobField;
     private javax.swing.JTextField emailField;
     private javax.swing.JTextField firstNameField;
     private javax.swing.JButton jButton1;
