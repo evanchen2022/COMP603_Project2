@@ -9,9 +9,6 @@ package Assignment_Two;
  * P08_16932797_21154481
  */
 
-import java.util.LinkedList;
-import java.util.List;
-
 // This class is the helper, it will help in the HomePage.
 // Since we will need to generate some needed information for processing the booking step.
 // And this is helper for the interaction between HomePage and PaasengerInfoPage.  

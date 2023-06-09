@@ -4,16 +4,10 @@
  */
 package Assignment_Two;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
-
 /**
  *
- * @author evan
+ * P08_16932797_21154481
  */
 public class SignupPage extends javax.swing.JFrame {
 
@@ -188,7 +182,6 @@ public class SignupPage extends javax.swing.JFrame {
     }//GEN-LAST:event_signupBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
-        // TODO add your handling code here:
         // This button will dispose this frame, so that the user can go back to the login page.
         this.dispose();
     }//GEN-LAST:event_cancelBtnActionPerformed

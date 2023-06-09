@@ -6,8 +6,9 @@ package Assignment_Two;
 
 /**
  *
- * @author evan
+ * P08_16932797_21154481
  */
+
 public class BookingMain 
 {
     public static void main(String[] args)
