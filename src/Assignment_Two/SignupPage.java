@@ -19,6 +19,9 @@ public class SignupPage extends javax.swing.JFrame {
 
     /**
      * Creates new form SignupPage
+     * This page is for sign up a new user account, and it will interact with USERS table at database.
+     * If there is existing user name, will show up the message with "User name exist! try other one!".
+     * Otherwise, we can create a new user account.
      */
     private DBOperations dbOP;
     
@@ -141,35 +144,7 @@ public class SignupPage extends javax.swing.JFrame {
     }//GEN-LAST:event_pwFirstActionPerformed
 
     private void signupBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signupBtnActionPerformed
-//         // TODO add your handling code here:
-//         String newUserName = UserName.getText();
-//         String newPw = pwFirst.getText();
-//         String newPw2 = pw.getText();
-//         
-//                  // validation for user Name
-//        if (!newUserName.matches("[a-zA-Z]+") || newUserName == null) {
-//            JOptionPane.showMessageDialog(null, "Invalid first name. Only letters are allowed.", "Input Error", JOptionPane.ERROR_MESSAGE);
-//            return;
-//        }
-//
-//        // Check if password is match
-//        if (newPw.compareTo(newPw2) != 0) {
-//            JOptionPane.showMessageDialog(this, "Please enter a correct password!");
-//            return; // Exit the method to prevent further execution
-//        }
-//         
-//        if (dbOP.checkExistedTable("Users")) {
-//            dbOP.insertUserInfo(newUserName, newPw2);
-//        }
-//        else
-//        {
-//            dbOP.createUsersTable();
-//            dbOP.insertUserInfo(newUserName, newPw2);
-//        }
-//         
-//         JOptionPane.showMessageDialog(this, "Successfully sign up!");
-//         this.dispose();
-          // TODO add your handling code here:
+        // TODO add your handling code here:
         String newUserName = UserName.getText();
         String newPw = pwFirst.getText();
         String newPw2 = pw.getText();
@@ -185,7 +160,8 @@ public class SignupPage extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Please enter a correct password!");
             return; // Exit the method to prevent further execution
         }
-
+        
+        // Check if there is a existing table and user name, and insert a new user account into the database.
         if (dbOP.checkExistedTable("Users")) {
 
             newUserName = dbOP.checkUser(UserName.getText());
@@ -206,16 +182,14 @@ public class SignupPage extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Successfully sign up!");
                 this.dispose();
             }
-//            dbOP.insertUserInfo(newUserName, newPw2);
-//            JOptionPane.showMessageDialog(this, "Successfully sign up!");
-//            this.dispose();
+
         }
 
     }//GEN-LAST:event_signupBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
         // TODO add your handling code here:
-        
+        // This button will dispose this frame, so that the user can go back to the login page.
         this.dispose();
     }//GEN-LAST:event_cancelBtnActionPerformed
 

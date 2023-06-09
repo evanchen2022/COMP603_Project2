@@ -13,7 +13,10 @@ import java.sql.Statement;
 
 /**
  *
- * @author evan
+ *  This class to manage all the SQL using, including check table, create new table, insert information.
+ * 
+ *  All new SQL function, will be added and managed at this class.
+ * 
  */
 public class DBOperations
 {
@@ -27,14 +30,7 @@ public class DBOperations
         //createPassengerInfoTable();
     }
 
-//    public static DBOperations getInstance() {
-//        if (instance == null) {
-//            instance = new DBOperations();
-//        }
-//        return instance;
-//    }
     // Check if a table exists, delete it if exist
-    // 改为boolean的method， 返回true or false
     public boolean checkExistedTable(String tableName)
     {
         Connection connection = dbManager.conn;
@@ -326,28 +322,7 @@ public class DBOperations
         return checkedName;
     }
 
-    // Get passenger information from "PassengerInfo" table
-//    public ResultSet getLastPassengerInfo(int count)
-//    {
-//        Connection connection = dbManager.conn;
-//        Statement statement = null;
-//        ResultSet rs = null;
-//
-//        try
-//        {
-//            System.out.println("Fetching last " + count + " passenger info from the PassengerInfo table...");
-//            String sqlQuery = "SELECT * FROM PassengerInfo ORDER BY passengerID DESC FETCH FIRST " + count + " ROWS ONLY";
-//
-//            statement = connection.createStatement();
-//            rs = statement.executeQuery(sqlQuery);
-//
-//        } catch (SQLException ex)
-//        {
-//            System.out.println(ex.getMessage());
-//        }
-//
-//        return rs;
-//    }
+    
     public ResultSet getLastPassengerInfo(int count)
     {
         Connection connection = dbManager.conn;

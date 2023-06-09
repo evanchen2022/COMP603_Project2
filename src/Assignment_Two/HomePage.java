@@ -21,6 +21,10 @@ public class HomePage extends javax.swing.JFrame
 
     /**
      * Creates new form HomePage
+     * This is the one of main page of the Booking System.
+     * It will interact with the BookedTicket table and Flight table from database.
+     * And also generate some user booking information for the next page.
+     * 
      */
     private String flightT = null;
     private HomePageModel homePageModel;
@@ -401,10 +405,11 @@ public class HomePage extends javax.swing.JFrame
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
         // TODO add your handling code here:
-        //Evan: check the flight database:
-        //step1: check if there is flight by (destination, date and time match)  => Yes
-        //step2: add customer into this flight. 
-        //step3: otherwise, create a new flight, then go next page to fill customer details.
+        //System process: 
+        //check the flight database:
+        //step1: Check if there is flight by (departure city and destination city, date and time)m if match will go through. 
+        //step2: Generage some information for next page
+        //step3: Every input will need to check the validation.
 
         try
         {
@@ -421,13 +426,14 @@ public class HomePage extends javax.swing.JFrame
             SeatType classService;
 
             // Check if flightTime is empty
+            // User have to choose one of the flight time from this page.
             if (flightTime == null)
             {
                 JOptionPane.showMessageDialog(this, "Please select a flight time.");
                 return; // Exit the method to prevent further execution
             }
 
-            //check the date time first, must be after today!!!
+            //check the date time first, must be after today!
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             try
             {
@@ -445,7 +451,8 @@ public class HomePage extends javax.swing.JFrame
                 return;
 
             }
-
+            
+            //get the flight service class from the user choice.
             if (serviceClass.equalsIgnoreCase("Business"))
             {
                 classService = SeatType.BUSINESS;
@@ -466,7 +473,8 @@ public class HomePage extends javax.swing.JFrame
             System.out.println("This line for testing: check if the newFLight object is correctly create.");
             System.out.println(newFlight.toString());
 
-            //check if we have this name at hte table:
+            //check if we have this flight at hte table:
+            //If the airline company not running this flight line, will shoe the error message.
             Statement stm = dbFlight.conn.createStatement();
             String sql = "select * from flight where departcity='" + departCT + "' and arrivalcity= '" + arrivalCT + "'";
             ResultSet rs = stm.executeQuery(sql);
@@ -484,16 +492,14 @@ public class HomePage extends javax.swing.JFrame
                 System.out.println("number of passenger:" + passengerNo);
                 System.out.println("service class:" + serviceClass);
 
-                dispose();  //close the login page\
+                dispose();  //close the login page
                 PassengerInfoPage detailPage = new PassengerInfoPage(newFlight, passengerNo, classService);
                 detailPage.setPassengerNumber(1);
                 detailPage.show();
             }
             else
             {
-                //if hte username and pw is wrong show error:
-                // Check if flightTime is empty
-
+                
                 JOptionPane.showMessageDialog(this, "We don't flight to this city recently, please choose other destination city!");
 
             }

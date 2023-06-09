@@ -10,6 +10,13 @@ import java.sql.SQLException;
  *
  * Student Name: Zhicong Wang Student ID: 21154481
  */
+
+/**
+ * This class will generate a HomePageModel, and it will cooperate with HomePageController and HomePage (Viewer Class).
+ * It has the DBOperation class built inside, so it has the connection to the database.
+ * By using this class, we can create a new table and write the BookedTicket information into the database.
+ * 
+ */
 public class HomePageModel
 {
 

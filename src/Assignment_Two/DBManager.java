@@ -12,24 +12,14 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * @author Weihua
- * ****************************************************************** 
- * @Note Database Connection Component
- * @Embedded database example: private String url="jdbc:derby:PlayerDB;create=true";
- * @Embedded database can be copied to the root of the project folder
- * @Embedded derby dataBase must have two jars referenced: derbyclient.jar and derby.jar
- * @Online URL example: url="jdbc:derby://localhost:1527/PlayerDB;create=true"
- * ********************************************************************
- */
+
 public final class DBManager {
 
     private static final String USER_NAME = "evan";
     private static final String PASSWORD = "1234";   
     private static final String URL = "jdbc:derby:BookingSystem;create=true";
-                                        //jdbc:derby://localhost:1527/BookingSystem
-                                        //jdbc:derby:BookingSystem;create=true
-    //we can use this one to get connect to the database!!!!!!!
+                                        
+    //we can use this one to get connect to the database!
     Connection conn;
 
     public DBManager() {

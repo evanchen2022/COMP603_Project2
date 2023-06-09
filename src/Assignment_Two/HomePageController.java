@@ -6,7 +6,10 @@ package Assignment_Two;
 
 public class HomePageController
 {
-
+    // This class to to build up HomePage Controller.
+    // It will have two method:
+    // 1. for creating BookedTicket table, if the table not exit, will create a new one.
+    // 2. for write Booked ticket information into the BookedTicket table.
     private HomePageModel homePageModel;
 
     public HomePageController(HomePageModel homePageModel)

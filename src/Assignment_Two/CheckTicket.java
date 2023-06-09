@@ -7,8 +7,14 @@ package Assignment_Two;
 import javax.swing.JLabel;
 
 /**
- *
- * @author evan
+ * This class will create a CheckTicket page.
+ * 
+ * It will interact with the BookedTicket table from database.
+ * 
+ * By input the first and last name, we can check the existing tickets.
+ * 
+ * If there is existing booked ticket, will show up the ticket details.
+ * 
  */
 public class CheckTicket extends javax.swing.JFrame {
 

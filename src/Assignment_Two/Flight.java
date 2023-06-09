@@ -12,6 +12,9 @@ package Assignment_Two;
 import java.util.LinkedList;
 import java.util.List;
 
+// This class is the helper, it will help in the HomePage.
+// Since we will need to generate some needed information for processing the booking step.
+// And this is helper for the interaction between HomePage and PaasengerInfoPage.  
 public class Flight
 {
 
@@ -76,17 +79,6 @@ public class Flight
     {
         this.time = time;
     }
-
-//    private boolean isInternational()
-//    {
-//        List<String> domesticAirports = new LinkedList<>();
-//        domesticAirports.add("Auckland (AKL)");
-//        domesticAirports.add("Christchurch (CHC)");
-//        domesticAirports.add("Wellington (WLG)");
-//        domesticAirports.add("Queenstown (ZQN)");
-//
-//        return !(domesticAirports.contains(departure) && domesticAirports.contains(destination));
-//    }
 
     @Override
     public String toString() {

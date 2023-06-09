@@ -20,6 +20,9 @@ public class LoginPage extends javax.swing.JFrame
 
     /**
      * Creates new form LoginPage
+     * This page will let the user input the exiting user account and password.
+     * If there is no existing user in the database, then we can sign up new account.
+     * 
      */
     private UserController userController;
 
@@ -154,7 +157,8 @@ public class LoginPage extends javax.swing.JFrame
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-
+        //This button will call the userController and verify the input.
+        //if there is no such user or wrong input, this page will show up error messages.
         try
         {
             String username = textUserName.getText();
