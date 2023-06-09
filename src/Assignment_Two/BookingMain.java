@@ -12,20 +12,9 @@ public class BookingMain
 {
     public static void main(String[] args)
     {
-        //UserModel newO = new UserModel();
-        //String sql = "select * from users";
-        //newO.queryDB(sql);
-        
-        //testing the user login in part:
         UserModel newUser = new UserModel();
-        //newUser.userOper.getQuery();
-        
-        //here set the login frame file as a main file for login:
         LoginPage login = new LoginPage();
         login.setLocationRelativeTo(null);
         login.show();
-        
-        
-        
     }
 }

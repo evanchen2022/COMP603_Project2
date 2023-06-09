@@ -64,49 +64,6 @@ public class DBManagerTest {
         
     }
 
-    /**
-     * Test of establishConnection method, of class DBManager.
-     */
-//    @Test
-//    public void testEstablishConnection() {
-//        System.out.println("establishConnection");
-//        DBManager instance = new DBManager();
-//        instance.establishConnection();
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
-//    /**
-//     * Test of closeConnections method, of class DBManager.
-//     */
-    
-//
-//    /**
-//     * Test of myQuery method, of class DBManager.
-//     */
-//    @Test
-//    public void testMyQuery() {
-//        System.out.println("myQuery");
-//        String sql = "";
-//        DBManager instance = new DBManager();
-//        ResultSet expResult = null;
-//        ResultSet result = instance.myQuery(sql);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
-//    /**
-//     * Test of myUpdate method, of class DBManager.
-//     */
-//    @Test
-//    public void testMyUpdate() {
-//        System.out.println("myUpdate");
-//        String sql = "";
-//        DBManager instance = new DBManager();
-//        instance.myUpdate(sql);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
+   
     
 }
