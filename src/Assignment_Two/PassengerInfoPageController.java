@@ -7,21 +7,25 @@ package Assignment_Two;
 
 /**
  *
- * Student Name: Zhicong Wang
- * Student ID:   21154481
+ * P08_16932797_21154481
  */
 public class PassengerInfoPageController {
 
     private PassengerInfoPageModel passengerModel;
 
+    // Constructor of PassengerInfoPageController
     public PassengerInfoPageController(PassengerInfoPageModel passengerModel) {
         this.passengerModel = passengerModel;
     }
 
+    /* Call the createPassengerInfoTable method of the passengerModel object to 
+     * create the passenger information table in the database.*/
     public void createPassengerInfoTable() {
         passengerModel.createPassengerInfoTable();
     }
 
+    /* Call the insertPassengerInfo method of the passengerModel object to 
+     * insert the passenger information table into the database.*/
     public void insertPassengerInfo(PassengerInfo passenger) {
         passengerModel.insertPassengerInfo(passenger);
     }

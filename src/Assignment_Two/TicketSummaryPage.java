@@ -11,7 +11,7 @@ import java.time.Period;
 
 /**
  *
- * @author T470s
+ * P08_16932797_21154481
  */
 public class TicketSummaryPage extends javax.swing.JFrame
 {
@@ -30,7 +30,12 @@ public class TicketSummaryPage extends javax.swing.JFrame
         displayPassengersInfo();
     }
 
-    // Retrieving passenger information from database and display
+    /* Retrieving passenger information from database and display
+     * Fetch the passenger data from the ResultSet
+     * Determine the type of the passenger and create the corresponding object
+     * Append the passenger and discount information to StringBuilder
+     * Fetch the values from the BookedTicket table
+     * Append the ticket information to StringBuilder*/
     private void displayPassengersInfo()
     {
         DBOperations dbOps = new DBOperations();
@@ -41,7 +46,6 @@ public class TicketSummaryPage extends javax.swing.JFrame
         {
             while (rs.next())
             {
-                // Fetch the passenger data from the ResultSet
                 String firstName = rs.getString("firstName");
                 String lastName = rs.getString("lastName");
                 String passportNumber = rs.getString("passportNumber");
@@ -53,7 +57,6 @@ public class TicketSummaryPage extends javax.swing.JFrame
                 LocalDate dob = LocalDate.parse(dobStr);
                 int age = Period.between(dob, LocalDate.now()).getYears();
 
-                // Determine the type of the passenger and create the corresponding object
                 PassengerInfo passenger;
                 if (age < 2)
                 {
@@ -68,13 +71,11 @@ public class TicketSummaryPage extends javax.swing.JFrame
                     passenger = new AdultPassengerInfo(firstName, lastName, passportNumber, dobStr, address, phoneNumber, email, clientNumber);
                 }
 
-                // Append the passenger and discount information to sb
                 String passengerInfo = String.format("First Name: %s\nLast Name: %s\nPassport Number: %s\nDOB: %s\nAddress: %s\nPhone Number: %s\nEmail: %s\nClient Number: %s\nDiscount Info: %s",
                         firstName, lastName, passportNumber, dobStr, address, phoneNumber, email, clientNumber, passenger.checkDiscount());
                 sb.append(passengerInfo);
                 sb.append("\n--------------------------------\n");
 
-                // Fetch the values from the BookedTicket table
                 String ticketID = rs.getString("TicketID");
                 String flightDate = rs.getString("flightDate");
                 String departureCity = rs.getString("DepartCity");
@@ -84,7 +85,6 @@ public class TicketSummaryPage extends javax.swing.JFrame
                 String price = rs.getString("Price");
                 totalPrice += Double.parseDouble(price);
 
-                // Append the ticket information to sb
                 String ticketInfo = String.format("Ticket ID: %s\nFlight Date: %s\nDeparture City: %s\nArrival City: %s\nFlight Time: %s\nService Class: %s\nPrice: %s",
                         ticketID, flightDate, departureCity, arrivalCity, flightTime, serviceClass, price);
                 sb.append(ticketInfo);
@@ -235,22 +235,25 @@ public class TicketSummaryPage extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /* Create a new EndPage
+     * Set location of the EndPage window
+     * Set visibility of the EndPage window
+     * Close the current window*/
     private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_confirmButtonActionPerformed
     {//GEN-HEADEREND:event_confirmButtonActionPerformed
-
         {
-
             EndPage endPage = new EndPage();
-
             endPage.setLocationRelativeTo(null);
-
             endPage.setVisible(true);
-
             this.dispose();
         }
 
     }//GEN-LAST:event_confirmButtonActionPerformed
 
+    /* Create a new LoginPage
+     * Set location of the LoginPage window
+     * Set visibility of the LoginPage window
+     * Close the current window*/
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_backButtonActionPerformed
     {//GEN-HEADEREND:event_backButtonActionPerformed
         LoginPage loginPage = new LoginPage();

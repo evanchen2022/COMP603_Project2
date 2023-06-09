@@ -6,23 +6,26 @@ package Assignment_Two;
 
 /**
  *
- * Student Name: Zhicong Wang Student ID: 21154481
+ * P08_16932797_21154481
  */
 public class PassengerInfoPageModel
 {
 
     private DBOperations dbOperations;
 
+    //Constructor of PassengerInfoPageModel
     public PassengerInfoPageModel()
     {
         dbOperations = new DBOperations();
     }
 
+    // To create the passenger information table in database through DBOperation
     public void createPassengerInfoTable()
     {
         dbOperations.createPassengerInfoTable();
     }
 
+    // To insert the passenger information into dataset through DBOperation
     public void insertPassengerInfo(PassengerInfo passenger)
     {
         dbOperations.insertPassengerInfo(passenger);
