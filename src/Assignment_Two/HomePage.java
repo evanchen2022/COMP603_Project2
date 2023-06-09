@@ -552,7 +552,6 @@ public class HomePage extends javax.swing.JFrame
             String ticketDetails = "";
             while (rs.next())
             {
-                //if user name and password is true then go to Home page
 
                 // Retrieve the values from the result set and concatenate them into the ticketDetails string
                 String ticketNum = rs.getString("TicketID");
@@ -565,7 +564,6 @@ public class HomePage extends javax.swing.JFrame
                 String serviceC = rs.getString("flightclass");
                 String fprice = rs.getString("Price");
 
-                // ... Add more columns as needed
                 ticketDetails += "Ticket Number: " + ticketNum + "\n";
                 ticketDetails += "......................................\n";
                 ticketDetails += "Passenger Details:\n";
