@@ -3,14 +3,18 @@
  */
 package Assignment_Two;
 
+/**
+ *
+ * P08_16932797_21154481
+ */
+
 //import PDC.H_JDBC.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 
 public final class DBManager {

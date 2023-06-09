@@ -4,16 +4,12 @@
  */
 package Assignment_Two;
 
-import java.awt.CardLayout;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 /**
  *
- * @author evan
+ * P08_16932797_21154481
  */
 public class LoginPage extends javax.swing.JFrame
 {

@@ -6,7 +6,7 @@ package Assignment_Two;
 
 /**
  *
- * @author T470s
+ * P08_16932797_21154481
  */
 public class EndPage extends javax.swing.JFrame
 {
