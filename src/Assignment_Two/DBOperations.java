@@ -182,34 +182,40 @@ public class DBOperations
     }
 
     // Inserts passenger information into "PassengerInfo" table
-    public void insertPassengerInfo(PassengerInfo passenger) {
-    Connection connection = dbManager.conn;
-    PreparedStatement statement = null;
-    String sqlQuery = "INSERT INTO PassengerInfo (firstName, lastName, passportNumber, dob, address, phoneNumber, email, clientNumber) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-    try {
-        statement = connection.prepareStatement(sqlQuery);
-        statement.setString(1, passenger.getFirstName());
-        statement.setString(2, passenger.getLastName());
-        statement.setString(3, passenger.getPassportNumber());
-        statement.setString(4, passenger.getDateOfBirth().toString());
-        statement.setString(5, passenger.getAddress());
-        statement.setString(6, passenger.getPhoneNumber());
-        statement.setString(7, passenger.getEmail());
-        statement.setString(8, passenger.getClientNumber());
-        statement.executeUpdate();
-    } catch (SQLException ex) {
-        ex.printStackTrace();
-    } finally {
-        if (statement != null) {
-            try {
-                statement.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
+    public void insertPassengerInfo(PassengerInfo passenger)
+    {
+        Connection connection = dbManager.conn;
+        PreparedStatement statement = null;
+        String sqlQuery = "INSERT INTO PassengerInfo (firstName, lastName, passportNumber, dob, address, phoneNumber, email, clientNumber) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        try
+        {
+            statement = connection.prepareStatement(sqlQuery);
+            statement.setString(1, passenger.getFirstName());
+            statement.setString(2, passenger.getLastName());
+            statement.setString(3, passenger.getPassportNumber());
+            statement.setString(4, passenger.getDateOfBirth().toString());
+            statement.setString(5, passenger.getAddress());
+            statement.setString(6, passenger.getPhoneNumber());
+            statement.setString(7, passenger.getEmail());
+            statement.setString(8, passenger.getClientNumber());
+            statement.executeUpdate();
+        } catch (SQLException ex)
+        {
+            ex.printStackTrace();
+        } finally
+        {
+            if (statement != null)
+            {
+                try
+                {
+                    statement.close();
+                } catch (SQLException e)
+                {
+                    e.printStackTrace();
+                }
             }
         }
     }
-}
-
 
     // Create "Users" table
     public void createUsersTable()
@@ -284,7 +290,7 @@ public class DBOperations
         }
 
     }
-    
+
     //check existing user from table:
     public String checkUser(String inputUser)
     {
@@ -296,29 +302,52 @@ public class DBOperations
         {
             //checkExisted Users in the table;
             System.out.println("Checking existing User in USers table in the database...");
-            
-            String sqlCheckFromTable = "Select * from Users where username = '"+inputUser+"'";
+
+            String sqlCheckFromTable = "Select * from Users where username = '" + inputUser + "'";
             statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(sqlCheckFromTable);
 
             System.out.println("Checking the Users table........");
-            
+
             if (rs.next())
             {
                 checkedName = "nope";
                 System.out.println("There is exiting user in here!");
-            } else {
+            }
+            else
+            {
                 checkedName = inputUser;
             }
         } catch (SQLException ex)
         {
             System.out.println(ex.getMessage());
-        } 
-        
+        }
+
         return checkedName;
     }
 
     // Get passenger information from "PassengerInfo" table
+//    public ResultSet getLastPassengerInfo(int count)
+//    {
+//        Connection connection = dbManager.conn;
+//        Statement statement = null;
+//        ResultSet rs = null;
+//
+//        try
+//        {
+//            System.out.println("Fetching last " + count + " passenger info from the PassengerInfo table...");
+//            String sqlQuery = "SELECT * FROM PassengerInfo ORDER BY passengerID DESC FETCH FIRST " + count + " ROWS ONLY";
+//
+//            statement = connection.createStatement();
+//            rs = statement.executeQuery(sqlQuery);
+//
+//        } catch (SQLException ex)
+//        {
+//            System.out.println(ex.getMessage());
+//        }
+//
+//        return rs;
+//    }
     public ResultSet getLastPassengerInfo(int count)
     {
         Connection connection = dbManager.conn;
@@ -327,8 +356,8 @@ public class DBOperations
 
         try
         {
-            System.out.println("Fetching last " + count + " passenger info from the PassengerInfo table...");
-            String sqlQuery = "SELECT * FROM PassengerInfo ORDER BY passengerID DESC FETCH FIRST " + count + " ROWS ONLY";
+            System.out.println("Fetching last " + count + " passenger info from the PassengerInfo and BookedTicket tables...");
+            String sqlQuery = "SELECT p.*, b.* FROM PassengerInfo p JOIN BookedTicket b ON UPPER(p.FIRSTNAME) = UPPER(b.FIRSTNAME) AND UPPER(p.LASTNAME) = UPPER(b.LASTNAME) ORDER BY p.passengerID DESC FETCH FIRST " + count + " ROWS ONLY";
 
             statement = connection.createStatement();
             rs = statement.executeQuery(sqlQuery);
